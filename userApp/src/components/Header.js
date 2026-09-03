@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../theme/colors';
 import { useApp } from '../context/AppContext';
 
-const LOGO = require('../../assets/farmart24_logo.jpg');
+const LOGO = require('../../assets/sfarmart24_logo.jpg');
 
 export const Header = ({ navigation, title, showCart = true, showBack = false }) => {
   const { cart, userProfile } = useApp();

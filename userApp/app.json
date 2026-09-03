@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "Farmart24",
+    "name": "Sfarmart24",
     "slug": "userApp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/farmart24_logo.jpg",
+      "image": "./assets/sfarmart24_logo.jpg",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

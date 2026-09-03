@@ -13,7 +13,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { colors, roles } from '../theme/colors';
 import { useApp } from '../context/AppContext';
 
-const LOGO = require('../../assets/farmart24_logo.jpg');
+const LOGO = require('../../assets/sfarmart24_logo.jpg');
 
 export const RoleSelectorModal = () => {
   const { activeRole, setActiveRole, isRoleModalOpen, setIsRoleModalOpen } = useApp();

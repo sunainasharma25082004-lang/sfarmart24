@@ -11,9 +11,9 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="footer-brand-col">
             <div className="footer-logo">
-              <img src="/updated-logo.jpeg" alt="Farmart Logo" className="footer-logo-img" onError={(e) => { e.target.style.display = 'none'; }} />
+              <img src="/updated-logo.jpeg" alt="Sfarmart24 Logo" className="footer-logo-img" onError={(e) => { e.target.style.display = 'none'; }} />
               <div className="logo-text">
-                <span className="logo-title white-text">FARMART</span>
+                <span className="logo-title white-text">SFARMART24</span>
                 <span className="logo-subtitle earth-text">AGRI-TECH & COMMUNITY</span>
               </div>
             </div>

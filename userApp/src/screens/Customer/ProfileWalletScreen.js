@@ -5,7 +5,7 @@ import { Header } from '../../components/Header';
 import { useApp } from '../../context/AppContext';
 import { colors } from '../../theme/colors';
 
-const LOGO = require('../../../assets/farmart24_logo.jpg');
+const LOGO = require('../../../assets/sfarmart24_logo.jpg');
 
 export const ProfileWalletScreen = ({ navigation }) => {
   const { userProfile, walletBalance, weeklyPayouts } = useApp();
@@ -13,7 +13,7 @@ export const ProfileWalletScreen = ({ navigation }) => {
   const handleShareReferral = async () => {
     try {
       await Share.share({
-        message: `Join Farmart24 - Farm-to-Home commerce! Use code ${userProfile.referralCode} for ₹50 bonus on first order.`
+        message: `Join Sfarmart24 - Farm-to-Home commerce! Use code ${userProfile.referralCode} for ₹50 bonus on first order.`
       });
     } catch (e) {
       console.log(e);

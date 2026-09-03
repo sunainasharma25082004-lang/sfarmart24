@@ -32,9 +32,9 @@ export default function Navbar({ currentView, onNavClick, onOpenContact, onOpenA
           className="navbar-logo logo-btn"
           onClick={() => onNavClick('home', 'hero')}
         >
-          <img src="/updated-logo.jpeg" alt="Farmart Logo" className="logo-img" onError={(e) => { e.target.style.display = 'none'; }} />
+          <img src="/updated-logo.jpeg" alt="Sfarmart24 Logo" className="logo-img" onError={(e) => { e.target.style.display = 'none'; }} />
           <div className="logo-text">
-            <span className="logo-title">FARMART</span>
+            <span className="logo-title">SFARMART24</span>
             <span className="logo-subtitle">AGRI-TECH & COMMUNITY</span>
           </div>
         </button>
