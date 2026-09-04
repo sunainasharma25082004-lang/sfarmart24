@@ -60,7 +60,7 @@ export const categoriesData = [
     shortLabel: 'Farmer Network',
     iconName: 'Users',
     badge: 'Direct Source',
-    image: '/hero.png',
+    image: '/sfarmart24_store_hero.png',
     shortDesc: 'Empowering smallholder farmers through direct market access & fair prices.',
     fullDesc: 'The Farmart Farmer Network bridges 50,000+ verified smallholder farmers directly with urban markets, ensuring transparent pricing, zero Mandi commission fees, and 24-hour direct payouts.',
     highlights: [

@@ -26,7 +26,7 @@ export default function VideoVisualHeroSection({ onOpenContact }) {
       time: '0:15',
       badge: 'LIVE FIELD HARVEST',
       desc: 'Watch Indian farmers aggregate organic vegetables with digital precision weighment at Farmart Village Hubs.',
-      image: '/hero.png'
+      image: '/sfarmart24_store_hero.png'
     },
     {
       id: 'hubs',

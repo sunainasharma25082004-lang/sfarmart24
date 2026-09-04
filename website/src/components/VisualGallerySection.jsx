@@ -34,7 +34,7 @@ export default function VisualGallerySection({ onSelectCategory }) {
                   alt={item.title}
                   className="topic-card-img"
                   onError={(e) => {
-                    e.target.src = '/hero.png';
+                    e.target.src = '/sfarmart24_store_hero.png';
                   }}
                 />
                 <div className="topic-img-overlay"></div>

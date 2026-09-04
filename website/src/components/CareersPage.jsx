@@ -72,7 +72,7 @@ export default function CareersPage({ onOpenContact }) {
       type: 'Full-Time',
       exp: '7+ Years',
       salary: '₹18 - ₹25 LPA + ESOPs',
-      coverImg: '/farmart_store_hero.jpg',
+      coverImg: '/sfarmart24_store_hero.png',
       desc: 'Lead multi-district business growth, B2B procurement scaling, and regional cluster leadership across India.',
       skills: ['Territory Management', 'Agri Supply Chain', 'Strategic Partnerships'],
       responsibilities: [
@@ -89,7 +89,7 @@ export default function CareersPage({ onOpenContact }) {
       type: 'Full-Time',
       exp: '3+ Years',
       salary: '₹5.5 - ₹8.0 LPA + Commission',
-      coverImg: '/dmart_hero.png',
+      coverImg: '/sfarmart24_store_hero.png',
       desc: 'Expand Digital Partner and FOCO Franchise networks across tier-2 & tier-3 urban retail markets.',
       skills: ['B2B Sales', 'Franchise Onboarding', 'Vendor Management'],
       responsibilities: [
@@ -106,7 +106,7 @@ export default function CareersPage({ onOpenContact }) {
       type: 'Full-Time',
       exp: '4+ Years',
       salary: '₹14 - ₹22 LPA',
-      coverImg: '/hero.png',
+      coverImg: '/sfarmart24_store_hero.png',
       desc: 'Architect Kisan App IoT sensor software, automated pricing APIs, and logistics dispatch engines.',
       skills: ['React', 'Node.js', 'PostgreSQL', 'Cloud Infrastructure'],
       responsibilities: [

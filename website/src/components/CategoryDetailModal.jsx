@@ -56,10 +56,10 @@ export default function CategoryDetailModal({ category, onClose }) {
         {/* Hero Visual Cover Image Header */}
         <div className="detail-hero-cover">
           <img
-            src={category.image || '/hero.png'}
+            src={category.image || '/sfarmart24_store_hero.png'}
             alt={category.title}
             className="cover-bg-image"
-            onError={(e) => { e.target.src = '/hero.png'; }}
+            onError={(e) => { e.target.src = '/sfarmart24_store_hero.png'; }}
           />
           <div className="cover-overlay-gradient"></div>
 

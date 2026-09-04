@@ -26,7 +26,7 @@ export default function PartnerSuccessStoriesSection({ onSelectCategory, onOpenC
       person: 'Ramesh Patel & 50,000+ Farmers',
       location: 'Nashik, Maharashtra',
       earning: '25% - 40% Higher Crop Revenue',
-      image: '/hero.png',
+      image: '/sfarmart24_store_hero.png',
       badge: 'FARM GATE DIRECT PROCUREMENT',
       impactText: 'Got guaranteed 12-hour direct harvest procurement at farm gate with 0% Mandi commission and instant 24-hr bank payout.',
       howToJoin: 'Register your farm on Kisan App or bring harvest to your local Gram Panchayat Village Hub.'
@@ -59,7 +59,7 @@ export default function PartnerSuccessStoriesSection({ onSelectCategory, onOpenC
       person: 'Amit Verma & Retail Investors',
       location: 'Indore, Madhya Pradesh',
       earning: 'High Monthly ROI (FOCO Model)',
-      image: '/farmart_store_hero.jpg',
+      image: '/sfarmart24_store_hero.png',
       badge: 'FOCO RETAIL SUPERMART',
       impactText: 'Owns a high-revenue Agri Mart supermart while Farmart corporate operations team manages 100% daily inventory & staffing.',
       howToJoin: 'Apply for FOCO Franchise in your city & invest with 100% company-managed peace of mind.'
@@ -70,7 +70,7 @@ export default function PartnerSuccessStoriesSection({ onSelectCategory, onOpenC
       person: 'Rahul Deshmukh & Youth Entrepreneurs',
       location: 'Pune / Nagpur',
       earning: '₹20,000 - ₹40,000 / month',
-      image: '/dmart_hero.png',
+      image: '/sfarmart24_store_hero.png',
       badge: 'SMARTPHONE DIGITAL PARTNER',
       impactText: 'Runs a smartphone-based digital business connecting local shops, bulk buyers, and fresh produce orders across city clusters.',
       howToJoin: 'Register as a Digital Business Partner with your smartphone and start booking orders with zero inventory risk.'

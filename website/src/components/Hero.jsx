@@ -1,98 +1,159 @@
 import React from 'react';
-import { ArrowDown, Sprout, ShieldCheck, TrendingUp, Sparkles, ShoppingBag, Store, Zap } from 'lucide-react';
+import { 
+  ArrowDown, 
+  Sprout, 
+  ShieldCheck, 
+  Sparkles, 
+  Store, 
+  ChevronRight,
+  Eye,
+  MapPin
+} from 'lucide-react';
 import './Hero.css';
 
 export default function Hero({ onExploreClick, onOpenShowcase }) {
   return (
     <section id="hero" className="hero-section">
-      {/* Subtle Decorative Backdrop Elements */}
+      {/* Dynamic Ambient Background Illumination */}
       <div className="hero-bg-glow hero-bg-glow-1"></div>
       <div className="hero-bg-glow hero-bg-glow-2"></div>
+      <div className="hero-bg-glow hero-bg-glow-3"></div>
 
       <div className="container hero-container">
-        <div className="hero-grid">
-          {/* Left Hero Content */}
-          <div className="hero-content">
-            <div className="hero-badge">
-              <Store size={16} className="badge-icon" />
-              <span>Your One Stop Agri Mart & Commerce Platform</span>
-            </div>
+        {/* Compact, Ultra-Impact Header */}
+        <div className="hero-intro">
+          <div className="hero-badge-pill">
+            <span className="live-pulsing-dot"></span>
+            <span className="badge-text">SFARMART24 • INDIA'S 1ST INTEGRATED AGRI-MART & RURAL COMMERCE GRID</span>
+          </div>
 
-            <h1 className="hero-title">
-              Empowering Farmers.<br />
-              <span className="gradient-text">Fresh. Quality. Everyday.</span><br />
-              <span className="hero-highlight-earth">Growing Bharat.</span>
-            </h1>
+          <h1 className="hero-main-title">
+            The Grand Agri Revolution.<br />
+            <span className="hero-gradient-text">Farm Gate Freshness meets Modern 24/7 Marts.</span>
+          </h1>
 
-            <p className="hero-subtext">
-              Farmart is India's premier one-stop Agri Mart and community commerce grid connecting smallholder farmers, Agri Mart stores, rural entrepreneurs, and urban families.
-            </p>
+          <p className="hero-description">
+            Empowering <strong>50,000+ farmers</strong> with direct market access, guaranteed fair prices, 
+            and 24-hour payouts — seamlessly connected to modern <strong>SFARMART24</strong> retail hubs supplying 
+            certified seeds, fertilizers, pesticides, farm tools, and daily essentials.
+          </p>
 
-            <div className="hero-actions">
-              {/* Primary Animated Magic Trigger Button */}
-              <button className="btn btn-earth hero-showcase-btn pulse-glow-button" onClick={onOpenShowcase}>
-                <Sparkles size={20} className="sparkle-anim" />
-                <span>✨ Discover Everything We Provide</span>
-              </button>
+          <div className="hero-cta-group">
+            <button className="btn btn-earth hero-glow-cta" onClick={onOpenShowcase}>
+              <Sparkles size={17} className="sparkle-rotate" />
+              <span>✨ Discover All Services & Ecosystem</span>
+            </button>
 
-              <button className="btn btn-secondary hero-main-cta" onClick={onExploreClick}>
-                <span>Explore Agri Mart Verticals</span>
-                <ArrowDown size={18} className="cta-arrow" />
-              </button>
-            </div>
+            <button className="btn btn-secondary hero-explore-btn" onClick={onExploreClick}>
+              <span>Explore 5 Agri Verticals</span>
+              <ArrowDown size={16} className="arrow-bounce" />
+            </button>
+          </div>
+        </div>
 
-            {/* Micro Stats / Highlights */}
-            <div className="hero-trust-bar">
-              <div className="trust-item">
-                <div className="trust-number">50,000+</div>
-                <div className="trust-label">Farmers Empowered</div>
+        {/* The Grand Cinematic Scenic Showcase ("WOW, WHAT A VIEW!") */}
+        <div className="scenic-showcase-wrapper">
+          <div 
+            className="scenic-stage-frame" 
+            onClick={onOpenShowcase}
+            title="Click to discover full SFARMART24 services & ecosystem"
+          >
+            <div className="scenic-img-container">
+              <img
+                src="/sfarmart24_store_hero.png?v=3"
+                alt="SFARMART24 - Scenic Farm Gate Landscape to Modern 24/7 Smart Mart"
+                className="scenic-panoramic-img"
+              />
+              
+              {/* Natural Lighting & Vignette Depth */}
+              <div className="scenic-vignette"></div>
+              <div className="scenic-light-sweep"></div>
+
+              {/* Hotspot 1: In the sky above the farmlands (Top Left) */}
+              <div className="scenic-hotspot hotspot-sky-farm">
+                <div className="hotspot-card">
+                  <div className="hotspot-icon-wrap farm-wrap">
+                    <Sprout size={16} />
+                  </div>
+                  <div className="hotspot-info">
+                    <div className="hotspot-title">Direct Farm Sourcing</div>
+                    <div className="hotspot-desc">100% Traceable • Fair Prices</div>
+                  </div>
+                </div>
               </div>
-              <div className="trust-divider"></div>
-              <div className="trust-item">
-                <div className="trust-number">1,200+</div>
-                <div className="trust-label">Village Hubs</div>
+
+              {/* Hotspot 2: In the sky above the Modern Mart (Top Right) */}
+              <div className="scenic-hotspot hotspot-sky-store">
+                <div className="hotspot-card">
+                  <div className="hotspot-icon-wrap store-wrap">
+                    <Store size={16} />
+                  </div>
+                  <div className="hotspot-info">
+                    <div className="hotspot-title">Modern 24/7 Smart Mart</div>
+                    <div className="hotspot-desc">Quality Seeds • Tools • Feed</div>
+                  </div>
+                </div>
               </div>
-              <div className="trust-divider"></div>
-              <div className="trust-item">
-                <div className="trust-number">150+</div>
-                <div className="trust-label">Agri Mart Outlets</div>
+
+              {/* Elegant Glass Ribbon at the Bottom */}
+              <div className="scenic-ribbon">
+                <div className="scenic-ribbon-left">
+                  <span className="scenic-live-beacon"></span>
+                  <span className="ribbon-location">
+                    <MapPin size={14} className="inline-icon" />
+                    <strong>SFARMART24 Integrated Model:</strong> Direct Farm Gate to Modern Omni-Channel Stores
+                  </span>
+                </div>
+                <div className="scenic-ribbon-badge">
+                  <Eye size={13} />
+                  <span>Click view to explore interactive showcase</span>
+                  <ChevronRight size={13} />
+                </div>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Right Hero Visual Card - Official FARMART Store Building Photo */}
-          <div className="hero-visual-wrapper" onClick={onOpenShowcase} style={{ cursor: 'pointer' }}>
-            <div className="hero-card-frame">
-              <img
-                src="/farmart_store_hero.jpg"
-                alt="FARMART — Your One Stop Agri Mart Store"
-                className="hero-main-img"
-              />
-              
-              {/* Floating Badge 1 - Agri Mart */}
-              <div className="floating-badge floating-badge-1">
-                <Store size={20} className="floating-icon-green" />
-                <div>
-                  <div className="floating-title">One Stop Agri Mart</div>
-                  <div className="floating-sub">Fresh. Quality. Everyday.</div>
-                </div>
-              </div>
-
-              {/* Floating Badge 2 - Quality Trust */}
-              <div className="floating-badge floating-badge-2">
-                <ShieldCheck size={20} className="floating-icon-amber" />
-                <div>
-                  <div className="floating-title">Grow Better. Live Better.</div>
-                  <div className="floating-sub">Seeds • Fertilizers • Tools</div>
-                </div>
-              </div>
-
-              {/* Floating Interactive Play Banner */}
-              <div className="floating-interactive-hint">
-                <Zap size={16} />
-                <span>Click store image to view All Services & Opportunities</span>
-              </div>
+        {/* High-Impact Value & Metrics Grid */}
+        <div className="scenic-stats-grid">
+          <div className="scenic-stat-card">
+            <div className="stat-glow-line"></div>
+            <div className="stat-icon-row">
+              <span className="stat-number">50,000+</span>
+              <span className="stat-pill-tag">GROWERS</span>
             </div>
+            <div className="stat-title">Empowered Farmers</div>
+            <div className="stat-sub">Direct digital weighment, zero middlemen fees & instant 24h bank UPI payouts.</div>
+          </div>
+
+          <div className="scenic-stat-card">
+            <div className="stat-glow-line"></div>
+            <div className="stat-icon-row">
+              <span className="stat-number">1,200+</span>
+              <span className="stat-pill-tag">VILLAGES</span>
+            </div>
+            <div className="stat-title">Gram Panchayat Hubs</div>
+            <div className="stat-sub">Village coordinators driving rural commerce, cold aggregation & local employment.</div>
+          </div>
+
+          <div className="scenic-stat-card">
+            <div className="stat-glow-line"></div>
+            <div className="stat-icon-row">
+              <span className="stat-number">150+</span>
+              <span className="stat-pill-tag">SUPERMARTS</span>
+            </div>
+            <div className="stat-title">Modern SFARMART24 Stores</div>
+            <div className="stat-sub">One-stop stores offering certified seeds, soil nutrients, tools & animal nutrition.</div>
+          </div>
+
+          <div className="scenic-stat-card">
+            <div className="stat-glow-line"></div>
+            <div className="stat-icon-row">
+              <span className="stat-number">30–45m</span>
+              <span className="stat-pill-tag">EXPRESS</span>
+            </div>
+            <div className="stat-title">Farm-Fresh Delivery</div>
+            <div className="stat-sub">Harvest-fresh vegetables, dairy, home meals & bakery delivered to urban doorsteps.</div>
           </div>
         </div>
       </div>

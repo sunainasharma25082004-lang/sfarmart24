@@ -74,10 +74,10 @@ export default function EcosystemPage({ categories, onSelectCategory, onOpenCont
                   {/* Photo Image Banner */}
                   <div className="eco-card-img-wrapper">
                     <img
-                      src={cat.image || '/hero.png'}
+                      src={cat.image || '/sfarmart24_store_hero.png'}
                       alt={cat.title}
                       className="eco-card-img"
-                      onError={(e) => { e.target.src = '/hero.png'; }}
+                      onError={(e) => { e.target.src = '/sfarmart24_store_hero.png'; }}
                     />
                     <span className="eco-pill-badge">{cat.badge}</span>
                   </div>
