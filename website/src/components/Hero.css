@@ -238,8 +238,9 @@
 .scenic-panoramic-img {
   width: 100%;
   height: auto;
-  aspect-ratio: 1024 / 460;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
+  object-position: center center;
   display: block;
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }

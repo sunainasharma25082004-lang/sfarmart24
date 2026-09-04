@@ -60,7 +60,7 @@ export default function Hero({ onExploreClick, onOpenShowcase }) {
           >
             <div className="scenic-img-container">
               <img
-                src="/sfarmart24_store_hero.png?v=3"
+                src="/sfarmart24_store_hero.png?v=4"
                 alt="SFARMART24 - Scenic Farm Gate Landscape to Modern 24/7 Smart Mart"
                 className="scenic-panoramic-img"
               />
