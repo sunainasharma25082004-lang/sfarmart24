@@ -22,6 +22,7 @@ import DreamRewardsPage from './components/DreamRewardsPage';
 import CareersPage from './components/CareersPage';
 import FaqPage from './components/FaqPage';
 import ContactPage from './components/ContactPage';
+import PrivacyPolicyPage from './components/PrivacyPolicyPage';
 import AdminDashboardPage from './components/AdminDashboardPage';
 import ImpactCalculator from './components/ImpactCalculator';
 import CareersSection from './components/CareersSection';
@@ -73,6 +74,7 @@ export default function App() {
       'careers',
       'faq',
       'contact',
+      'privacy',
       'admin'
     ];
 
@@ -235,6 +237,13 @@ export default function App() {
           <ContactPage />
         )}
 
+        {currentView === 'privacy' && (
+          <PrivacyPolicyPage
+            onNavigateToHome={handleExploreClick}
+            onOpenContact={handleOpenContact}
+          />
+        )}
+
         {currentView === 'home' && (
           <>
             {/* Full Width Hero */}
@@ -291,7 +300,7 @@ export default function App() {
       )}
 
       {/* Footer */}
-      {currentView !== 'admin' && <Footer />}
+      {currentView !== 'admin' && <Footer onNavClick={handleNavClick} />}
 
       {/* Interactive Services & Offerings Showcase Modal */}
       <ServicesShowcaseModal

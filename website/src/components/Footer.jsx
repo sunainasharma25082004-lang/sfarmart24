@@ -2,7 +2,14 @@ import React from 'react';
 import { Leaf, ArrowUpRight, Heart } from 'lucide-react';
 import './Footer.css';
 
-export default function Footer() {
+export default function Footer({ onNavClick }) {
+  const handleLegalClick = (e, viewName) => {
+    e.preventDefault();
+    if (onNavClick) {
+      onNavClick(viewName);
+    }
+  };
+
   return (
     <footer className="footer">
       <div className="container footer-container">
@@ -32,12 +39,12 @@ export default function Footer() {
           <div className="footer-links-col">
             <h4>Ecosystem Verticals</h4>
             <ul>
-              <li><a href="#ecosystem">Growth Partner</a></li>
-              <li><a href="#ecosystem">Village Hub</a></li>
-              <li><a href="#ecosystem">Farmer Network</a></li>
-              <li><a href="#ecosystem">Women Entrepreneur</a></li>
-              <li><a href="#ecosystem">FOCO Franchise</a></li>
-              <li><a href="#ecosystem">Dream Rewards</a></li>
+              <li><button className="footer-link-btn" onClick={() => onNavClick && onNavClick('growth-partner')}>Growth Partner</button></li>
+              <li><button className="footer-link-btn" onClick={() => onNavClick && onNavClick('village-hub')}>Village Hub</button></li>
+              <li><button className="footer-link-btn" onClick={() => onNavClick && onNavClick('farmer-network')}>Farmer Network</button></li>
+              <li><button className="footer-link-btn" onClick={() => onNavClick && onNavClick('women-entrepreneur')}>Women Entrepreneur</button></li>
+              <li><button className="footer-link-btn" onClick={() => onNavClick && onNavClick('foco-franchise')}>FOCO Franchise</button></li>
+              <li><button className="footer-link-btn" onClick={() => onNavClick && onNavClick('dream-rewards')}>Dream Rewards</button></li>
             </ul>
           </div>
 
@@ -45,12 +52,12 @@ export default function Footer() {
           <div className="footer-links-col">
             <h4>Quick Links</h4>
             <ul>
-              <li><a href="#hero">Home</a></li>
-              <li><a href="#about">About Farmart</a></li>
-              <li><a href="#mission">Mission & Vision</a></li>
-              <li><a href="#calculator">Impact Calculator</a></li>
-              <li><a href="#careers">Careers</a></li>
-              <li><a href="#contact">Contact Support</a></li>
+              <li><button className="footer-link-btn" onClick={() => onNavClick && onNavClick('home', 'hero')}>Home</button></li>
+              <li><button className="footer-link-btn" onClick={() => onNavClick && onNavClick('about')}>About Farmart</button></li>
+              <li><button className="footer-link-btn" onClick={() => onNavClick && onNavClick('mission')}>Mission & Vision</button></li>
+              <li><button className="footer-link-btn" onClick={() => onNavClick && onNavClick('home', 'calculator')}>Impact Calculator</button></li>
+              <li><button className="footer-link-btn" onClick={() => onNavClick && onNavClick('careers')}>Careers</button></li>
+              <li><button className="footer-link-btn" onClick={() => onNavClick && onNavClick('contact')}>Contact Support</button></li>
             </ul>
           </div>
 
@@ -74,9 +81,15 @@ export default function Footer() {
             © {new Date().getFullYear()} Farmart Agri Tech Pvt Ltd. All rights reserved.
           </div>
           <div className="footer-legal-links">
-            <a href="#privacy">Privacy Policy</a>
-            <a href="#terms">Terms of Service</a>
-            <a href="#kisan-guidelines">Kisan Guidelines</a>
+            <button className="footer-legal-btn highlight-legal" onClick={(e) => handleLegalClick(e, 'privacy')}>
+              Privacy Policy
+            </button>
+            <button className="footer-legal-btn" onClick={() => onNavClick && onNavClick('faq')}>
+              Terms & FAQs
+            </button>
+            <button className="footer-legal-btn" onClick={() => onNavClick && onNavClick('about')}>
+              Kisan Guidelines
+            </button>
           </div>
           <div className="made-with-love">
             Crafted with <Heart size={14} className="heart-icon" /> for Growing Bharat
