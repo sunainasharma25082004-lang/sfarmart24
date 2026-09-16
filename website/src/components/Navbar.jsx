@@ -17,8 +17,8 @@ export default function Navbar({ currentView, onNavClick, onOpenContact, onOpenA
   const navItems = [
     { name: 'Home', view: 'home', targetId: 'hero' },
     { name: 'About Farmart', view: 'about', targetId: null },
-    { name: 'Mission & Vision', view: 'mission', targetId: null },
     { name: 'Our Ecosystem', view: 'ecosystem', targetId: null },
+    { name: 'Digital Partner (Apply ₹199)', view: 'digital-partner', targetId: null, isFeatured: true },
     { name: 'Careers', view: 'careers', targetId: null },
     { name: 'FAQ', view: 'faq', targetId: null },
     { name: 'Contact', view: 'contact', targetId: null },
@@ -44,7 +44,7 @@ export default function Navbar({ currentView, onNavClick, onOpenContact, onOpenA
           {navItems.map((item) => (
             <button
               key={item.name}
-              className={`nav-item nav-btn ${currentView === item.view ? 'active-nav-btn' : ''}`}
+              className={`nav-item nav-btn ${currentView === item.view ? 'active-nav-btn' : ''} ${item.isFeatured ? 'nav-item-featured' : ''}`}
               onClick={() => onNavClick(item.view, item.targetId)}
             >
               {item.name}
@@ -77,7 +77,7 @@ export default function Navbar({ currentView, onNavClick, onOpenContact, onOpenA
             {navItems.map((item) => (
               <button
                 key={item.name}
-                className="mobile-nav-item nav-btn"
+                className={`mobile-nav-item nav-btn ${item.isFeatured ? 'mobile-nav-featured' : ''}`}
                 onClick={() => {
                   onNavClick(item.view, item.targetId);
                   setMobileMenuOpen(false);

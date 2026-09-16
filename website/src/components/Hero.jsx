@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import './Hero.css';
 
-export default function Hero({ onExploreClick, onOpenShowcase }) {
+export default function Hero({ onExploreClick, onOpenShowcase, onOpenDigitalPartner }) {
   return (
     <section id="hero" className="hero-section">
       {/* Dynamic Ambient Background Illumination */}
@@ -27,6 +27,17 @@ export default function Hero({ onExploreClick, onOpenShowcase }) {
             <span className="badge-text">SFARMART24 • INDIA'S 1ST INTEGRATED AGRI-MART & RURAL COMMERCE GRID</span>
           </div>
 
+          {/* Eye-catching Digital Partner Callout Banner */}
+          {onOpenDigitalPartner && (
+            <button className="hero-dp-hot-pill" onClick={onOpenDigitalPartner}>
+              <span className="hot-tag">NEW 🔥</span>
+              <span className="hot-text">
+                <strong>Digital Partner Openings (₹199):</strong> Scan Razorpay QR &amp; Apply Online
+              </span>
+              <span className="hot-arrow">&rarr;</span>
+            </button>
+          )}
+
           <h1 className="hero-main-title">
             The Grand Agri Revolution.<br />
             <span className="hero-gradient-text">Farm Gate Freshness meets Modern 24/7 Marts.</span>
@@ -39,9 +50,15 @@ export default function Hero({ onExploreClick, onOpenShowcase }) {
           </p>
 
           <div className="hero-cta-group">
+            {onOpenDigitalPartner && (
+              <button className="btn btn-primary hero-dp-glow-btn" onClick={onOpenDigitalPartner}>
+                <span>📲 Apply Digital Partner (₹199)</span>
+              </button>
+            )}
+
             <button className="btn btn-earth hero-glow-cta" onClick={onOpenShowcase}>
               <Sparkles size={17} className="sparkle-rotate" />
-              <span>✨ Discover All Services & Ecosystem</span>
+              <span>✨ Discover All Services</span>
             </button>
 
             <button className="btn btn-secondary hero-explore-btn" onClick={onExploreClick}>

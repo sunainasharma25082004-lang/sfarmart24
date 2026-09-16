@@ -241,6 +241,10 @@ export default function App() {
             <Hero
               onExploreClick={handleExploreClick}
               onOpenShowcase={() => setShowServicesShowcase(true)}
+              onOpenDigitalPartner={() => {
+                setCurrentView('digital-partner');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
             />
 
             {/* High-Definition Visual Topic Gallery */}

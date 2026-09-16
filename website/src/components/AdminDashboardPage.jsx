@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ShieldCheck,
   Search,
@@ -118,6 +118,26 @@ export default function AdminDashboardPage({ onNavigateHome }) {
       refCode: 'FMT-FAR-410293'
     }
   ]);
+
+  useEffect(() => {
+    try {
+      const stored = JSON.parse(localStorage.getItem('sfarmart_digital_partner_applications') || '[]');
+      if (stored && stored.length > 0) {
+        setApplications((prev) => {
+          const prevIds = new Set(prev.map((p) => p.id));
+          const newEntries = stored
+            .filter((s) => !prevIds.has(s.id))
+            .map((s) => ({
+              ...s,
+              details: `Digital Partner Application (Fee: ₹199). UTR: ${s.utrNumber || 'N/A'}. Profession: ${s.profession || 'N/A'}. ${s.whyJoin ? `Motivation: ${s.whyJoin}` : ''}`
+            }));
+          return [...newEntries, ...prev];
+        });
+      }
+    } catch (e) {
+      console.error('Failed to parse local applications:', e);
+    }
+  }, []);
 
   // Status Filter options
   const filterTabs = [

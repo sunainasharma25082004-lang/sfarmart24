@@ -15,8 +15,10 @@ import {
   Share2,
   BookOpen,
   DollarSign,
-  Laptop
+  Laptop,
+  CreditCard
 } from 'lucide-react';
+import DigitalPartnerApplyForm from './DigitalPartnerApplyForm';
 import './DigitalPartnerPage.css';
 
 export default function DigitalPartnerPage({ onOpenContact, onBackToEcosystem }) {
@@ -29,6 +31,15 @@ export default function DigitalPartnerPage({ onOpenContact, onBackToEcosystem })
     city: '',
     currentRole: 'Student'
   });
+
+  const scrollToApply = () => {
+    const el = document.getElementById('digital-partner-apply');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      setShowApplyModal(true);
+    }
+  };
 
   const whoCanBecome = [
     { title: 'Student', desc: 'Tech-savvy youth seeking part-time digital income while completing studies.' },
@@ -126,20 +137,20 @@ export default function DigitalPartnerPage({ onOpenContact, onBackToEcosystem })
 
             <div className="dp-badge">
               <Smartphone size={16} />
-              <span>Tech & Affiliate Vertical</span>
+              <span>Tech & Affiliate Vertical &bull; ₹199 Starter Kit</span>
             </div>
 
             <h1 className="dp-hero-title">Farmart Digital Business Partner</h1>
-            <p className="dp-tagline">"Start Your Digital Business with Farmart"</p>
+            <p className="dp-tagline">"Start Your Digital Business with Sfarmart24 &bull; ₹199 Only"</p>
 
             {/* 2. Intro Paragraph */}
             <p className="dp-intro-paragraph">
-              Become a Farmart Digital Business Partner and spearhead the digital transformation of local commerce in your region. Using our powerful mobile app tools, referral systems, and partner dashboard, you can onboard local households, Kirana stores, and home chefs — building a high-margin digital business with lifetime recurring commission streams and zero physical inventory risk.
+              Become an official Sfarmart24 Digital Business Partner and spearhead the digital transformation of local commerce in your region. Using our powerful mobile app tools, referral systems, and partner dashboard, you can onboard local households, Kirana stores, and home chefs — building a high-margin digital business with lifetime recurring commissions (5% - 8%) and zero physical inventory risk.
             </p>
 
             <div className="dp-hero-actions">
-              <button className="btn btn-primary dp-teal-btn" onClick={() => setShowApplyModal(true)}>
-                <span>Apply for Digital Partnership</span>
+              <button className="btn btn-primary dp-teal-btn" onClick={scrollToApply}>
+                <span>Apply for Digital Partnership (₹199)</span>
                 <ArrowRight size={18} />
               </button>
               <button className="btn btn-secondary" onClick={onOpenContact}>
@@ -149,6 +160,9 @@ export default function DigitalPartnerPage({ onOpenContact, onBackToEcosystem })
           </div>
         </div>
       </section>
+
+      {/* 2. Top Prominent Apply Section with Razorpay Standee QR & Clean Google Form */}
+      <DigitalPartnerApplyForm onOpenContact={onOpenContact} />
 
       {/* 3. Who Can Become */}
       <section className="dp-who-section section-padding">
@@ -264,7 +278,7 @@ export default function DigitalPartnerPage({ onOpenContact, onBackToEcosystem })
         </div>
       </section>
 
-      {/* 7. Closing Tagline Banner */}
+      {/* Closing Tagline Banner */}
       <section className="dp-cta-section">
         <div className="container">
           <div className="dp-cta-card">
@@ -277,11 +291,11 @@ export default function DigitalPartnerPage({ onOpenContact, onBackToEcosystem })
             </h2>
 
             <p className="dp-cta-sub">
-              Start earning lifetime recurring commissions today. Zero registration fee for early partners.
+              Start earning lifetime recurring commissions today. One-time digital onboarding kit &amp; verification fee: ₹199 only.
             </p>
 
-            <button className="btn btn-primary dp-teal-btn dp-main-btn" onClick={() => setShowApplyModal(true)}>
-              <span>Apply for Digital Partnership</span>
+            <button className="btn btn-primary dp-teal-btn dp-main-btn" onClick={scrollToApply}>
+              <span>Apply for Digital Partnership (₹199)</span>
               <ArrowRight size={18} />
             </button>
           </div>
@@ -293,7 +307,10 @@ export default function DigitalPartnerPage({ onOpenContact, onBackToEcosystem })
         <div className="dp-modal-overlay">
           <div className="dp-modal-container fade-in">
             <div className="dp-modal-header">
-              <h3>Apply for Digital Business Partnership</h3>
+              <div>
+                <h3>Apply for Digital Partnership</h3>
+                <span className="modal-fee-subtitle">Registration Fee: ₹199 Only &bull; One-Time Starter Kit</span>
+              </div>
               <button className="modal-close-btn" onClick={() => setShowApplyModal(false)}>
                 <X size={20} />
               </button>
@@ -303,16 +320,26 @@ export default function DigitalPartnerPage({ onOpenContact, onBackToEcosystem })
               {submitted ? (
                 <div className="dp-submit-success">
                   <CheckCircle2 size={50} className="success-icon" />
-                  <h4>Application Submitted!</h4>
+                  <h4>Application Details Saved!</h4>
                   <p>
-                    Thank you for applying. Your unique Digital Partner QR & dashboard link will be sent to your mobile via SMS within 2 hours.
+                    Please complete the ₹199 onboarding payment via Razorpay QR to activate your Partner QR &amp; dashboard.
                   </p>
-                  <button className="btn btn-primary" onClick={() => { setSubmitted(false); setShowApplyModal(false); }}>
-                    Close
+                  <button
+                    className="btn btn-primary dp-teal-btn full-btn"
+                    onClick={() => {
+                      setShowApplyModal(false);
+                      scrollToApply();
+                    }}
+                  >
+                    <span>Proceed to Razorpay ₹199 Payment &amp; UTR Entry &rarr;</span>
                   </button>
                 </div>
               ) : (
                 <form onSubmit={handleApplySubmit} className="dp-apply-form">
+                  <div className="modal-fast-track-tip">
+                    <CreditCard size={16} />
+                    <span>Includes Custom Partner QR + Mobile Dashboard + 5%-8% Lifetime Commission for ₹199</span>
+                  </div>
                   <div className="form-group">
                     <label>Full Name *</label>
                     <input
