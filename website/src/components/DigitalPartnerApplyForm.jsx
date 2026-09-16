@@ -116,7 +116,7 @@ export default function DigitalPartnerApplyForm({ onOpenContact }) {
     setSubmitting(true);
 
     const generatedId = `SFM-DP-${Math.floor(100000 + Math.random() * 900000)}`;
-    const targetWhatsAppNumber = '916284961684';
+    const targetWhatsAppNumber = '917973442177';
 
     const whatsappMsg = `🌾 *SFARMART24 - Digital Partner Application* 🌾
 ━━━━━━━━━━━━━━━━━━━━━━
@@ -167,7 +167,7 @@ export default function DigitalPartnerApplyForm({ onOpenContact }) {
           district: formData.cityState,
           state: formData.cityState,
           experience: formData.profession,
-          notes: `₹199 Paid. UTR: ${formData.utrNumber}. WhatsApp: 6284961684`
+          notes: `₹199 Paid. UTR: ${formData.utrNumber}. WhatsApp: +91 79 7344 2177`
         })
       }).catch(() => {});
     } catch (err) {
@@ -178,7 +178,7 @@ export default function DigitalPartnerApplyForm({ onOpenContact }) {
       setSubmitting(false);
       setSubmittedApp(newRecord);
       window.scrollTo({ top: document.getElementById('digital-partner-apply')?.offsetTop - 50 || 100, behavior: 'smooth' });
-      // Direct redirect to WhatsApp with application data for number 6284961684
+      // Direct redirect to WhatsApp with application data for number +91 79 7344 2177
       try {
         window.open(whatsappUrl, '_blank');
       } catch (e) {
@@ -280,13 +280,13 @@ export default function DigitalPartnerApplyForm({ onOpenContact }) {
                   <span>रसीद प्रिंट / डाउनलोड करें (Print Receipt)</span>
                 </button>
                 <a
-                  href={submittedApp.whatsappUrl || `https://api.whatsapp.com/send?phone=916284961684&text=Hello`}
+                  href={submittedApp.whatsappUrl || `https://api.whatsapp.com/send?phone=917973442177&text=Hello`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-whatsapp-confirm"
                 >
                   <Smartphone size={18} />
-                  <span>WhatsApp पर डेटा भेजें (Send to 6284961684)</span>
+                  <span>WhatsApp पर डेटा भेजें (Send to +91 79 7344 2177)</span>
                 </a>
                 <button
                   className="btn btn-secondary"
@@ -624,7 +624,7 @@ export default function DigitalPartnerApplyForm({ onOpenContact }) {
                   <div className="whatsapp-submit-hint">
                     <Smartphone size={16} />
                     <span>
-                      सबमिट करने पर यह आवेदन सीधे <strong>WhatsApp (6284961684)</strong> पर भेजा जाएगा।
+                      सबमिट करने पर यह आवेदन सीधे <strong>WhatsApp (+91 79 7344 2177)</strong> पर भेजा जाएगा।
                     </span>
                   </div>
 
