@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import EcosystemGrid from './components/EcosystemGrid';
@@ -30,14 +30,105 @@ import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import { categoriesData } from './data/categories';
 
+const getInitialView = () => {
+  if (typeof window === 'undefined') return 'home';
+  const pathname = window.location.pathname.toLowerCase().replace(/^\/+|\/+$/g, '');
+  const hash = window.location.hash.toLowerCase().replace(/^[#/]+/, '');
+  const searchParams = new URLSearchParams(window.location.search);
+  const paramView = searchParams.get('view') || searchParams.get('page') || searchParams.get('tab');
+
+  // Ad campaign direct links for Privacy Policy
+  if (
+    pathname === 'privacy' ||
+    pathname === 'privacy-policy' ||
+    pathname === 'privacy.html' ||
+    pathname === 'privacy-policy.html' ||
+    pathname === 'legal/privacy' ||
+    hash === 'privacy' ||
+    hash === 'privacy-policy' ||
+    paramView === 'privacy' ||
+    paramView === 'privacy-policy'
+  ) {
+    return 'privacy';
+  }
+
+  const validViews = [
+    'about',
+    'mission',
+    'ecosystem',
+    'village-hub',
+    'growth-partner',
+    'farmer-network',
+    'women-entrepreneur',
+    'digital-partner',
+    'home-restro',
+    'foco-franchise',
+    'dream-rewards',
+    'careers',
+    'faq',
+    'contact',
+    'privacy',
+    'admin'
+  ];
+
+  if (paramView && validViews.includes(paramView)) return paramView;
+  if (pathname && validViews.includes(pathname)) return pathname;
+  if (hash && validViews.includes(hash)) return hash;
+
+  return 'home';
+};
+
+const updateBrowserUrl = (viewName) => {
+  if (typeof window === 'undefined') return;
+  try {
+    const targetUrl = viewName === 'home' ? '/' : `/${viewName}`;
+    if (window.location.pathname !== targetUrl) {
+      window.history.pushState({ view: viewName }, '', targetUrl);
+    }
+  } catch (e) {
+    console.warn('URL update error:', e);
+  }
+};
+
 export default function App() {
-  const [currentView, setCurrentView] = useState('home'); 
+  const [currentView, setCurrentView] = useState(getInitialView); 
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [showServicesShowcase, setShowServicesShowcase] = useState(false);
+
+  // Synchronize browser history and page titles
+  useEffect(() => {
+    const handleLocationChange = () => {
+      const detectedView = getInitialView();
+      setCurrentView(detectedView);
+    };
+
+    window.addEventListener('popstate', handleLocationChange);
+    window.addEventListener('hashchange', handleLocationChange);
+
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+      window.removeEventListener('hashchange', handleLocationChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (currentView === 'privacy') {
+      document.title = 'Privacy Policy | SFARMART24 - Agri-Tech & Community Commerce';
+    } else if (currentView === 'about') {
+      document.title = 'About Us | SFARMART24';
+    } else if (currentView === 'careers') {
+      document.title = 'Careers | SFARMART24';
+    } else if (currentView === 'contact') {
+      document.title = 'Contact Support | SFARMART24';
+    } else {
+      document.title = 'SFARMART24 | Agri-Tech & Community Commerce Platform';
+    }
+  }, [currentView]);
 
   const handleExploreClick = () => {
     if (currentView !== 'home') {
       setCurrentView('home');
+      updateBrowserUrl('home');
       setTimeout(() => {
         const ecosystemEl = document.getElementById('ecosystem');
         if (ecosystemEl) ecosystemEl.scrollIntoView({ behavior: 'smooth' });
@@ -50,11 +141,13 @@ export default function App() {
 
   const handleOpenContact = () => {
     setCurrentView('contact');
+    updateBrowserUrl('contact');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleOpenAdmin = () => {
     setCurrentView('admin');
+    updateBrowserUrl('admin');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -80,9 +173,11 @@ export default function App() {
 
     if (pageViews.includes(viewName)) {
       setCurrentView(viewName);
+      updateBrowserUrl(viewName);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       setCurrentView('home');
+      updateBrowserUrl('home');
       if (targetId) {
         setTimeout(() => {
           const el = document.getElementById(targetId);
@@ -110,6 +205,7 @@ export default function App() {
 
     if (routeMap[targetId]) {
       setCurrentView(routeMap[targetId]);
+      updateBrowserUrl(routeMap[targetId]);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       const found = categoriesData.find(c => c.id === targetId);

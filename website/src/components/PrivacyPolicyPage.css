@@ -130,6 +130,140 @@
   color: var(--primary-green);
 }
 
+/* Campaign Direct Link Box */
+.campaign-link-box {
+  background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+  border: 1px solid var(--border-green);
+  border-radius: 20px;
+  padding: 1.5rem;
+  margin-bottom: 2.25rem;
+  box-shadow: 0 4px 15px rgba(22, 163, 74, 0.06);
+  text-align: left;
+}
+
+.campaign-link-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  color: #166534;
+  margin-bottom: 0.85rem;
+}
+
+.campaign-live-indicator {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.campaign-link-input-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.campaign-url-display {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  flex-grow: 1;
+  overflow-x: auto;
+}
+
+.campaign-link-icon {
+  color: var(--primary-green);
+  flex-shrink: 0;
+}
+
+.campaign-url-display code {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+  white-space: nowrap;
+}
+
+.copy-campaign-btn {
+  background: var(--primary-green);
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1.4rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.92rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.copy-campaign-btn:hover {
+  background: #15803d;
+  transform: translateY(-1px);
+}
+
+.copy-campaign-btn.copied-btn {
+  background: #10b981;
+  color: #ffffff;
+}
+
+.campaign-alt-links {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  font-size: 0.82rem;
+  color: #64748b;
+}
+
+.alt-label {
+  font-weight: 600;
+}
+
+.alt-link-pill {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 9999px;
+  padding: 0.25rem 0.75rem;
+  font-family: monospace;
+  font-size: 0.82rem;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.alt-link-pill:hover {
+  border-color: var(--primary-green);
+  color: var(--primary-green);
+  background: #f0fdf4;
+}
+
+@media (max-width: 640px) {
+  .campaign-link-input-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .copy-campaign-btn {
+    justify-content: center;
+  }
+}
+
 .privacy-hero-actions {
   display: flex;
   justify-content: center;

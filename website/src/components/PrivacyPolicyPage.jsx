@@ -20,13 +20,29 @@ import {
   Smartphone,
   CreditCard,
   Building2,
-  ChevronRight
+  ChevronRight,
+  Copy,
+  Check,
+  Link2
 } from 'lucide-react';
 import './PrivacyPolicyPage.css';
 
 export default function PrivacyPolicyPage({ onNavigateToHome, onOpenContact }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeSection, setActiveSection] = useState('all');
+  const [copied, setCopied] = useState(false);
+
+  const currentOrigin = typeof window !== 'undefined' ? window.location.origin : 'https://sfarmart.co.in';
+  const campaignUrl = `${currentOrigin}/privacy`;
+
+  const handleCopyLink = (urlToCopy = campaignUrl) => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(urlToCopy).then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 3000);
+      });
+    }
+  };
 
   const handlePrint = () => {
     window.print();
@@ -92,6 +108,43 @@ export default function PrivacyPolicyPage({ onNavigateToHome, onOpenContact }) {
               <div className="meta-pill">
                 <Building2 size={15} />
                 <span>Entity: <strong>Farmart Agri Tech Pvt Ltd</strong></span>
+              </div>
+            </div>
+
+            {/* Campaign Direct Link Box */}
+            <div className="campaign-link-box">
+              <div className="campaign-link-header">
+                <span className="campaign-live-indicator"></span>
+                <strong>Official Direct Link for Ad Campaigns (Meta Ads / Google Ads):</strong>
+              </div>
+              <div className="campaign-link-input-row">
+                <div className="campaign-url-display">
+                  <Link2 size={16} className="campaign-link-icon" />
+                  <code>{campaignUrl}</code>
+                </div>
+                <button
+                  type="button"
+                  className={`btn copy-campaign-btn ${copied ? 'copied-btn' : ''}`}
+                  onClick={() => handleCopyLink(campaignUrl)}
+                >
+                  {copied ? <Check size={16} /> : <Copy size={16} />}
+                  <span>{copied ? 'Copied Link!' : 'Copy Campaign URL'}</span>
+                </button>
+              </div>
+              <div className="campaign-alt-links">
+                <span className="alt-label">Direct Supported URLs:</span>
+                <button type="button" className="alt-link-pill" title="Click to copy" onClick={() => handleCopyLink(`${currentOrigin}/privacy`)}>
+                  /privacy
+                </button>
+                <button type="button" className="alt-link-pill" title="Click to copy" onClick={() => handleCopyLink(`${currentOrigin}/?view=privacy`)}>
+                  /?view=privacy
+                </button>
+                <button type="button" className="alt-link-pill" title="Click to copy" onClick={() => handleCopyLink(`${currentOrigin}/#privacy`)}>
+                  /#privacy
+                </button>
+                <button type="button" className="alt-link-pill" title="Click to copy" onClick={() => handleCopyLink(`${currentOrigin}/privacy.html`)}>
+                  /privacy.html
+                </button>
               </div>
             </div>
 
