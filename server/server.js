@@ -143,6 +143,21 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // ── 0. Root / Welcome Route ───────────────────────────────────────────
+  if (req.method === 'GET' && (pathname === '/' || pathname === '/api')) {
+    sendJson(res, 200, {
+      success: true,
+      status: 'online',
+      message: 'Sfarmart24 Backend Server is running successfully!',
+      endpoints: {
+        health: '/api/health',
+        submissions: '/api/submissions',
+        stats: '/api/stats'
+      }
+    });
+    return;
+  }
+
   // ── 1. Health Check ────────────────────────────────────────────────────
   if (req.method === 'GET' && pathname === '/api/health') {
     sendJson(res, 200, { status: 'OK', message: 'Farmart backend operational', timestamp: new Date() });

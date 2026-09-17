@@ -187,7 +187,7 @@ export default function DigitalPartnerApplyForm({ onOpenContact }) {
       localStorage.setItem('sfarmart_digital_partner_applications', JSON.stringify(existing));
 
       // 1. Sync to main backend /api/submissions (MongoDB + Screenshot save)
-      fetch('http://localhost:5000/api/submissions', {
+      fetch('https://sfarmart24-web-api.onrender.com/api/submissions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -206,7 +206,7 @@ export default function DigitalPartnerApplyForm({ onOpenContact }) {
       }).catch(() => {});
 
       // 2. Legacy /api/apply
-      fetch('http://localhost:5000/api/apply', {
+      fetch('https://sfarmart24-web-api.onrender.com/api/apply', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

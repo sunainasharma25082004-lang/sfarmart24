@@ -382,7 +382,8 @@ window.viewDetails = function(id) {
   const ssRow = document.getElementById('mScreenshotRow');
   const ssImg = document.getElementById('mScreenshotImg');
   if (item.screenshot && ssRow && ssImg) {
-    ssImg.src = `http://localhost:5000${item.screenshot}`;
+    const backendOrigin = API_BASE_URL.replace(/\/api$/, '');
+    ssImg.src = `${backendOrigin}${item.screenshot}`;
     ssRow.style.display = 'block';
   } else if (ssRow) {
     ssRow.style.display = 'none';
