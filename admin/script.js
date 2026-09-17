@@ -4,7 +4,7 @@
  * customer detail modal, and persistent record deletion.
  */
 
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'https://sfarmart24-web-api.onrender.com/api';
 let allSubmissions = [];
 let autoRefreshTimer = null;
 

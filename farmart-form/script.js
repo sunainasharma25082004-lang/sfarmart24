@@ -10,7 +10,7 @@ const RAZORPAY_KEY_ID = "rzp_live_Td3vCBrNQSYyl8"; // Official Razorpay Live API
 const REGISTRATION_AMOUNT = 199;
 const MERCHANT_NAME = "Sfarmart24";
 const MERCHANT_UPI = "SFARMART24@razorpay";
-const BACKEND_API_URL = "http://localhost:5000/api/submissions";
+const BACKEND_API_URL = "https://sfarmart24-web-api.onrender.com/api/submissions";
 
 // ==========================================================================
 // 2. DOM ELEMENTS
