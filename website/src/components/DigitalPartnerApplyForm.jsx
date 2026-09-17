@@ -66,20 +66,48 @@ export default function DigitalPartnerApplyForm({ onOpenContact }) {
     }
   };
 
-  const handleSimulatedRazorpaySuccess = () => {
-    setSimulatedPaying(true);
-    setTimeout(() => {
-      const randomUtr = `RZP${Math.floor(1000000000 + Math.random() * 9000000000)}`;
-      setFormData((prev) => ({
-        ...prev,
-        utrNumber: randomUtr
-      }));
-      setSimulatedPaying(false);
-      setShowRazorpayModal(false);
-      alert(`₹199 पेमेंट सफल रहा (Razorpay Demo)!\n\nआपका UTR नंबर (${randomUtr}) फॉर्म में ऑटोमैटिकली भर गया है। कृपया बाकी विवरण भरकर नीचे "फॉर्म सबमिट करें" बटन दबाएं।`);
-      const utrInput = document.getElementById('utr-input-field');
-      if (utrInput) utrInput.focus();
-    }, 1200);
+  const handleLiveRazorpayPayment = () => {
+    if (typeof window.Razorpay === 'undefined') {
+      alert('Razorpay Checkout SDK लोड नहीं हो पाया। कृपया पेज रिफ्रेश करें।');
+      return;
+    }
+
+    const options = {
+      key: 'rzp_live_Td3vCBrNQSYyl8',
+      amount: 19900, // ₹199 in paise
+      currency: 'INR',
+      name: 'Sfarmart24',
+      description: 'Digital Business Partner Onboarding Fee',
+      image: '/updated-logo.jpeg',
+      prefill: {
+        name: formData.fullName || '',
+        email: formData.email || '',
+        contact: formData.phone || ''
+      },
+      notes: {
+        city: formData.cityState || '',
+        purpose: 'Digital Partner Onboarding'
+      },
+      theme: {
+        color: '#15803d'
+      },
+      handler: function (response) {
+        if (response && response.razorpay_payment_id) {
+          const payId = response.razorpay_payment_id;
+          setFormData((prev) => ({
+            ...prev,
+            utrNumber: payId
+          }));
+          setShowRazorpayModal(false);
+          alert(`₹199 का पेमेंट सफलतापूर्वक पूरा हुआ!\n\nपेमेंट ID (${payId}) फॉर्म में भर दी गई है। कृपया फॉर्म सबमिट करें।`);
+          const utrInput = document.getElementById('utr-input-field');
+          if (utrInput) utrInput.focus();
+        }
+      }
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
   };
 
   const handleSubmit = (e) => {
@@ -106,8 +134,9 @@ export default function DigitalPartnerApplyForm({ onOpenContact }) {
       return;
     }
 
-    if (!formData.utrNumber || formData.utrNumber.trim().length < 6) {
-      setErrorMessage('कृपया Razorpay / UPI पेमेंट का 12 अंकों का UTR / Ref नंबर लिखें। पहले बाईं तरफ दिए गए QR कोड को स्कैन करके ₹199 पे करें।');
+    const hasUtr = Boolean(formData.utrNumber && formData.utrNumber.trim().length >= 6);
+    if (!hasUtr && !screenshotPreview) {
+      setErrorMessage('कृपया Razorpay / UPI पेमेंट का 12 अंकों का UTR नंबर लिखें अथवा पेमेंट का स्क्रीनशॉट अपलोड करें।');
       const utrEl = document.getElementById('utr-input-field');
       if (utrEl) utrEl.focus();
       return;
@@ -116,7 +145,8 @@ export default function DigitalPartnerApplyForm({ onOpenContact }) {
     setSubmitting(true);
 
     const generatedId = `SFM-DP-${Math.floor(100000 + Math.random() * 900000)}`;
-    const targetWhatsAppNumber = '917973442177';
+    const targetWhatsAppNumber = '918146207005';
+    const effectiveUtr = hasUtr ? formData.utrNumber.trim() : 'SCREENSHOT_ATTACHED';
 
     const whatsappMsg = `🌾 *SFARMART24 - Digital Partner Application* 🌾
 ━━━━━━━━━━━━━━━━━━━━━━
@@ -127,7 +157,7 @@ export default function DigitalPartnerApplyForm({ onOpenContact }) {
 📍 *City & State (शहर/राज्य):* ${formData.cityState.trim()}
 💼 *Profession (पेशा):* ${formData.profession}
 💰 *Registration Fee (फीस):* ₹199 (Paid via Razorpay/UPI)
-🔢 *12-Digit UTR / Ref No:* ${formData.utrNumber.trim()}
+🔢 *12-Digit UTR / Ref No:* ${effectiveUtr}
 ━━━━━━━━━━━━━━━━━━━━━━
 ✅ *नमस्ते! मैंने ₹199 का भुगतान कर दिया है और पार्टनर आवेदन सबमिट किया है। कृपया मेरा डिजिटल पार्टनर QR कोड और लॉगिन एक्टिवेट करें।*`;
 
@@ -143,7 +173,7 @@ export default function DigitalPartnerApplyForm({ onOpenContact }) {
       profession: formData.profession,
       whyJoin: formData.whyJoin,
       feePaid: '₹199',
-      utrNumber: formData.utrNumber.trim(),
+      utrNumber: effectiveUtr,
       hasScreenshot: !!screenshotPreview,
       date: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
       status: 'Verified - In Activation',
@@ -156,6 +186,26 @@ export default function DigitalPartnerApplyForm({ onOpenContact }) {
       existing.unshift(newRecord);
       localStorage.setItem('sfarmart_digital_partner_applications', JSON.stringify(existing));
 
+      // 1. Sync to main backend /api/submissions (MongoDB + Screenshot save)
+      fetch('http://localhost:5000/api/submissions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          registrationId: generatedId,
+          fullName: formData.fullName.trim(),
+          mobileNumber: formData.phone.trim(),
+          email: formData.email.trim(),
+          address: formData.cityState.trim(),
+          paymentRef: effectiveUtr,
+          paymentMethod: hasUtr ? 'UPI QR Scan (UTR)' : 'UPI QR Scan (Screenshot Attached)',
+          amount: 199,
+          status: 'PAID',
+          screenshotBase64: screenshotPreview || undefined,
+          screenshotFilename: screenshotPreview ? `dp_${generatedId}.jpg` : undefined
+        })
+      }).catch(() => {});
+
+      // 2. Legacy /api/apply
       fetch('http://localhost:5000/api/apply', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -167,7 +217,7 @@ export default function DigitalPartnerApplyForm({ onOpenContact }) {
           district: formData.cityState,
           state: formData.cityState,
           experience: formData.profession,
-          notes: `₹199 Paid. UTR: ${formData.utrNumber}. WhatsApp: +91 79 7344 2177`
+          notes: `₹199 Paid. UTR: ${effectiveUtr}. WhatsApp: +91 81462 07005`
         })
       }).catch(() => {});
     } catch (err) {
@@ -178,7 +228,7 @@ export default function DigitalPartnerApplyForm({ onOpenContact }) {
       setSubmitting(false);
       setSubmittedApp(newRecord);
       window.scrollTo({ top: document.getElementById('digital-partner-apply')?.offsetTop - 50 || 100, behavior: 'smooth' });
-      // Direct redirect to WhatsApp with application data for number +91 79 7344 2177
+      // Direct redirect to WhatsApp with application data for number +91 81462 07005
       try {
         window.open(whatsappUrl, '_blank');
       } catch (e) {
@@ -280,13 +330,13 @@ export default function DigitalPartnerApplyForm({ onOpenContact }) {
                   <span>रसीद प्रिंट / डाउनलोड करें (Print Receipt)</span>
                 </button>
                 <a
-                  href={submittedApp.whatsappUrl || `https://api.whatsapp.com/send?phone=917973442177&text=Hello`}
+                  href={submittedApp.whatsappUrl || `https://api.whatsapp.com/send?phone=918146207005&text=Hello`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-whatsapp-confirm"
                 >
                   <Smartphone size={18} />
-                  <span>WhatsApp पर डेटा भेजें (Send to +91 79 7344 2177)</span>
+                  <span>WhatsApp पर डेटा भेजें (Send to +91 81462 07005)</span>
                 </a>
                 <button
                   className="btn btn-secondary"
@@ -387,10 +437,10 @@ export default function DigitalPartnerApplyForm({ onOpenContact }) {
                   <button
                     type="button"
                     className="btn btn-razorpay-online"
-                    onClick={() => setShowRazorpayModal(true)}
+                    onClick={handleLiveRazorpayPayment}
                   >
                     <CreditCard size={18} />
-                    <span>Pay ₹199 Online (Cards / NetBanking / Wallets)</span>
+                    <span>Pay ₹199 Online via Razorpay</span>
                   </button>
 
                   {/* Download Standee QR Button */}
@@ -539,6 +589,34 @@ export default function DigitalPartnerApplyForm({ onOpenContact }) {
                       onChange={(e) => setFormData({ ...formData, utrNumber: e.target.value })}
                     />
 
+                    {/* Direct Live Razorpay Checkout Option */}
+                    <div style={{ marginTop: '8px', marginBottom: '8px' }}>
+                      <button
+                        type="button"
+                        onClick={handleLiveRazorpayPayment}
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          background: 'linear-gradient(135deg, #0284c7, #0f766e)',
+                          color: '#ffffff',
+                          border: 'none',
+                          padding: '10px 16px',
+                          borderRadius: '8px',
+                          fontWeight: 600,
+                          fontSize: '13.5px',
+                          cursor: 'pointer',
+                          width: '100%',
+                          justifyContent: 'center',
+                          boxShadow: '0 2px 8px rgba(2, 132, 199, 0.25)',
+                          transition: 'transform 0.15s, opacity 0.15s'
+                        }}
+                      >
+                        <CreditCard size={17} />
+                        <span>⚡ Pay ₹199 via Razorpay (UPI / Cards) — ऑटोमैटिक ID भरेगी</span>
+                      </button>
+                    </div>
+
                     {/* Visual Helpful Guide on how to find UTR */}
                     <div className="utr-guide-card">
                       <div className="guide-title">
@@ -624,7 +702,7 @@ export default function DigitalPartnerApplyForm({ onOpenContact }) {
                   <div className="whatsapp-submit-hint">
                     <Smartphone size={16} />
                     <span>
-                      सबमिट करने पर यह आवेदन सीधे <strong>WhatsApp (+91 79 7344 2177)</strong> पर भेजा जाएगा।
+                      सबमिट करने पर यह आवेदन सीधे <strong>WhatsApp (+91 81462 07005)</strong> पर भेजा जाएगा।
                     </span>
                   </div>
 
@@ -708,20 +786,10 @@ export default function DigitalPartnerApplyForm({ onOpenContact }) {
             <div className="rp-modal-footer">
               <button
                 className="btn btn-primary rp-pay-now-btn"
-                disabled={simulatedPaying}
-                onClick={handleSimulatedRazorpaySuccess}
+                onClick={handleLiveRazorpayPayment}
               >
-                {simulatedPaying ? (
-                  <>
-                    <RefreshCw size={18} className="spin-icon" />
-                    <span>पेमेंट प्रोसेस हो रहा है...</span>
-                  </>
-                ) : (
-                  <>
-                    <ShieldCheck size={18} />
-                    <span>Complete ₹199 Payment Now</span>
-                  </>
-                )}
+                <ShieldCheck size={18} />
+                <span>Pay ₹199 via Razorpay Live</span>
               </button>
             </div>
           </div>

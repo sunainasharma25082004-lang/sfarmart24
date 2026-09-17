@@ -84,8 +84,8 @@ export default function ContactSection() {
                   <Phone size={20} />
                 </div>
                 <div>
-                  <strong>Kisan Toll-Free Helpline</strong>
-                  <p className="phone-highlight">1800-123-FARMART (1800-123-3276)</p>
+                  <strong>Kisan Helpline & Support</strong>
+                  <p className="phone-highlight"><a href="tel:+918146207005" style={{ color: 'inherit', textDecoration: 'none' }}>+91 81462 07005</a></p>
                   <span className="timing-sub"><Clock size={12} /> Mon - Sat: 7:00 AM - 9:00 PM</span>
                 </div>
               </div>

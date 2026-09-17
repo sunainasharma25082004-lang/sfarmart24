@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sfarmart24 - Admin Dashboard (Partner Form & Payments)</title>
+  <meta name="description" content="Sfarmart24 Partner Form & Razorpay Payment Administration Console">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Admin Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Admin Navigation Bar -->
+  <header class="admin-header">
+    <div class="header-inner">
+      <div class="header-brand">
+        <img src="assets/logo.png" alt="Sfarmart24 Logo" class="admin-logo" onerror="this.style.display='none'">
+        <div class="brand-headings">
+          <div class="brand-title-row">
+            <h1 class="brand-title">Sfarmart24</h1>
+            <span class="admin-pill">Admin Console</span>
+          </div>
+          <span class="brand-subtitle">Partner Registration & Fee Payment Records</span>
+        </div>
+      </div>
+
+      <div class="header-right-tools">
+        <!-- Live Server Status Indicator -->
+        <div class="status-indicator" id="serverStatusBadge">
+          <span class="status-dot"></span>
+          <span class="status-label" id="serverStatusText">Connecting API...</span>
+        </div>
+
+        <!-- Live Clock -->
+        <div class="live-clock" id="liveClock">--:--:--</div>
+
+        <!-- Open Form Portal Button -->
+        <a href="http://localhost:4173" target="_blank" class="btn-open-portal" title="Open Public Form Portal">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          <span>Open Public Form</span>
+        </a>
+
+        <!-- Refresh Button -->
+        <button type="button" class="btn-header-refresh" id="btnRefreshData" title="Refresh Live Data">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M23 4v6h-6"></path><path d="M1 20v-6h6"></path><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+          <span>Refresh</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <main class="admin-main">
+    <div class="dashboard-container">
+      
+      <!-- Page Title & Quick Actions Row -->
+      <section class="page-title-bar">
+        <div>
+          <h2 class="section-title">Partner Applications & Payment Submissions</h2>
+          <p class="section-subtitle">फॉर्म में भरा गया सारा विवरण (Name, Mobile, Email, Address, Payment Ref/UTR) यहाँ लाइव दिखता है।</p>
+        </div>
+        <div class="header-action-buttons">
+          <button type="button" class="btn-action-primary" id="btnExportCsv">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>Export to CSV / Excel</span>
+          </button>
+          <button type="button" class="btn-action-secondary" id="btnOpenAddModal">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span>Manual Entry</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- KPI Summary Cards -->
+      <section class="kpi-grid">
+        
+        <!-- Total Registrations Card -->
+        <div class="kpi-card card-green">
+          <div class="kpi-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </div>
+          <div class="kpi-details">
+            <span class="kpi-label">Total Registrations</span>
+            <span class="kpi-value" id="kpiTotalCount">0</span>
+            <span class="kpi-subtext">कुल पंजीकृत पार्टनर्स</span>
+          </div>
+        </div>
+
+        <!-- Total Revenue Card -->
+        <div class="kpi-card card-blue">
+          <div class="kpi-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          </div>
+          <div class="kpi-details">
+            <span class="kpi-label">Total Revenue (फीस संग्रह)</span>
+            <span class="kpi-value" id="kpiTotalRevenue">₹0</span>
+            <span class="kpi-subtext">₹199 per partner</span>
+          </div>
+        </div>
+
+        <!-- Today Submissions Card -->
+        <div class="kpi-card card-amber">
+          <div class="kpi-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+          </div>
+          <div class="kpi-details">
+            <span class="kpi-label">Today's Submissions</span>
+            <span class="kpi-value" id="kpiTodayCount">0</span>
+            <span class="kpi-subtext">आज प्राप्त नए फॉर्म</span>
+          </div>
+        </div>
+
+        <!-- Payment Verification Rate -->
+        <div class="kpi-card card-purple">
+          <div class="kpi-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          </div>
+          <div class="kpi-details">
+            <span class="kpi-label">Payment Success Rate</span>
+            <span class="kpi-value">100%</span>
+            <span class="kpi-subtext">All Verified Paid</span>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Table Filter & Search Card -->
+      <section class="table-container-card">
+        
+        <div class="table-toolbar">
+          <!-- Search input -->
+          <div class="search-box">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input 
+              type="text" 
+              id="searchInput" 
+              placeholder="Search by Name, Mobile, Email, City, UTR/Ref..." 
+              autocomplete="off"
+            >
+            <button type="button" class="btn-clear-search" id="btnClearSearch" style="display: none;">&times;</button>
+          </div>
+
+          <!-- Filters -->
+          <div class="filter-controls">
+            <!-- Payment Method Filter -->
+            <select id="filterMethod" class="filter-select">
+              <option value="ALL">All Payment Methods</option>
+              <option value="Razorpay">Razorpay Online</option>
+              <option value="UPI">UPI QR Scan (UTR)</option>
+            </select>
+
+            <!-- Sort By -->
+            <select id="sortOrder" class="filter-select">
+              <option value="NEWEST">Newest First</option>
+              <option value="OLDEST">Oldest First</option>
+              <option value="NAME">Name (A-Z)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Table Info Banner -->
+        <div class="table-info-strip">
+          <span id="resultsCountText">Showing 0 submissions</span>
+          <div class="auto-refresh-toggle">
+            <label class="switch-label">
+              <input type="checkbox" id="chkAutoRefresh" checked>
+              <span class="switch-slider"></span>
+            </label>
+            <span class="toggle-text">Auto-refresh (10s)</span>
+          </div>
+        </div>
+
+        <!-- Submissions Responsive Table -->
+        <div class="table-responsive-wrapper">
+          <table class="submissions-table" id="submissionsTable">
+            <thead>
+              <tr>
+                <th>Reg ID & Date</th>
+                <th>Full Name (नाम)</th>
+                <th>Mobile & WhatsApp</th>
+                <th>Email ID</th>
+                <th>Address (पूरा पता)</th>
+                <th>Payment & Ref / UTR</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th class="text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <!-- Dynamically populated by script.js -->
+              <tr>
+                <td colspan="9" class="loading-cell">
+                  <div class="spinner"></div>
+                  <span>Loading submissions...</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Empty State (Shown if no data) -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+          <div class="empty-state-icon">📄</div>
+          <h3 class="empty-title">Koi Submission Nahi Mila</h3>
+          <p class="empty-desc">Abhi tak koi form submit nahi hua hai, ya aapka search filter match nahi kar raha.</p>
+          <a href="http://localhost:4173" target="_blank" class="btn-fill-form-now">Open Form & Submit Test Entry</a>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- CUSTOMER DETAIL & RECEIPT MODAL -->
+  <div class="modal-backdrop" id="detailModal" style="display: none;">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title-box">
+          <span class="modal-badge">Partner Dossier & Receipt</span>
+          <h3 class="modal-title" id="modalCustomerName">Customer Details</h3>
+        </div>
+        <button type="button" class="btn-close-modal" id="btnCloseDetailModal">&times;</button>
+      </div>
+
+      <div class="modal-body" id="modalPrintArea">
+        <div class="receipt-print-header">
+          <img src="assets/logo.png" alt="Sfarmart24 Logo" class="print-logo" onerror="this.style.display='none'">
+          <div class="print-org-info">
+            <span class="print-org-title">SFARMART24 AGRI-TECH NETWORK</span>
+            <span class="print-doc-name">Official Partner Onboarding Record</span>
+          </div>
+        </div>
+
+        <div class="details-grid">
+          <div class="detail-item">
+            <span class="detail-label">Registration ID</span>
+            <span class="detail-val font-mono" id="mRegId">-</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Submission Date & Time</span>
+            <span class="detail-val" id="mDateTime">-</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Full Name / पूरा नाम</span>
+            <span class="detail-val font-bold text-primary" id="mFullName">-</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Mobile Number / मोबाइल नंबर</span>
+            <span class="detail-val font-mono" id="mMobile">-</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Email ID / ईमेल आईडी</span>
+            <span class="detail-val" id="mEmail">-</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Payment Amount Paid</span>
+            <span class="detail-val font-bold text-green" id="mAmount">₹199.00</span>
+          </div>
+          <div class="detail-item full-width">
+            <span class="detail-label">Full Address / पूरा पता</span>
+            <span class="detail-val" id="mAddress">-</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Payment Method</span>
+            <span class="detail-val" id="mPaymentMethod">-</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Payment Ref / UPI UTR</span>
+            <span class="detail-val font-mono bg-highlight" id="mPaymentRef">-</span>
+          </div>
+          <div class="detail-item full-width">
+            <span class="detail-label">Onboarding Status</span>
+            <span class="badge-status-paid">PAID &amp; VERIFIED (सफल भुगतान)</span>
+          </div>
+          <div class="detail-item full-width" id="mScreenshotRow" style="display:none;">
+            <span class="detail-label">Payment Screenshot 📸</span>
+            <img id="mScreenshotImg" src="" alt="Payment Screenshot"
+              style="max-width:100%; max-height:300px; border-radius:10px; border:2px solid #22c55e; margin-top:6px; cursor:pointer;"
+              onclick="window.open(this.src,'_blank')" title="Click to view full size">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <a href="#" id="modalWhatsAppBtn" target="_blank" class="btn-whatsapp-modal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.301-.15-1.78-.879-2.056-.98-.275-.101-.476-.15-.676.15-.2.3-.776.98-.952 1.18-.175.2-.351.226-.652.075-.301-.15-1.272-.469-2.423-1.496-.895-.798-1.5-1.783-1.676-2.083-.175-.3-.019-.462.132-.612.135-.135.301-.351.451-.527.151-.176.201-.301.302-.502.101-.2.05-.376-.025-.526-.075-.151-.677-1.633-.927-2.235-.244-.587-.492-.507-.677-.517-.175-.01-.376-.01-.577-.01s-.527.075-.802.376c-.276.301-1.053 1.029-1.053 2.509 0 1.48 1.078 2.909 1.229 3.11.15.2 2.122 3.24 5.141 4.544.718.31 1.279.496 1.716.635.722.23 1.378.197 1.898.12.58-.087 1.78-.728 2.03-1.43.251-.703.251-1.305.176-1.43-.075-.126-.276-.201-.577-.352zM12.04 2C6.52 2 2.03 6.49 2.03 12c0 1.83.49 3.55 1.35 5.04L2 22l5.12-1.34A9.97 9.97 0 0 0 12.04 22c5.52 0 10.01-4.49 10.01-10S17.56 2 12.04 2z"/></svg>
+          <span>Chat on WhatsApp</span>
+        </a>
+        <button type="button" class="btn-print-modal" id="btnPrintModal">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          Print Receipt Slip
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MANUAL ENTRY MODAL -->
+  <div class="modal-backdrop" id="addEntryModal" style="display: none;">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h3 class="modal-title">Add Manual Partner Registration</h3>
+        <button type="button" class="btn-close-modal" id="btnCloseAddModal">&times;</button>
+      </div>
+      <form id="manualEntryForm">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-col">
+              <label class="form-lbl">Full Name / पूरा नाम *</label>
+              <input type="text" id="addName" class="form-ctrl" required placeholder="e.g. Suresh Patel">
+            </div>
+            <div class="form-col">
+              <label class="form-lbl">Mobile Number *</label>
+              <input type="tel" id="addMobile" class="form-ctrl" maxlength="10" required placeholder="10-digit number">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-col">
+              <label class="form-lbl">Email Address *</label>
+              <input type="email" id="addEmail" class="form-ctrl" required placeholder="partner@gmail.com">
+            </div>
+            <div class="form-col">
+              <label class="form-lbl">Payment Ref / UTR *</label>
+              <input type="text" id="addPaymentRef" class="form-ctrl" required placeholder="pay_manual_... or UTR">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-col">
+              <label class="form-lbl">Payment Method</label>
+              <select id="addMethod" class="form-ctrl">
+                <option value="Razorpay Online">Razorpay Online</option>
+                <option value="UPI QR Scan (UTR Verified)">UPI QR Scan (UTR)</option>
+                <option value="Cash / Offline Deposit">Cash / Offline Deposit</option>
+              </select>
+            </div>
+            <div class="form-col">
+              <label class="form-lbl">Amount (₹)</label>
+              <input type="number" id="addAmount" class="form-ctrl" value="199">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-col full-width">
+              <label class="form-lbl">Address / पूरा पता *</label>
+              <textarea id="addAddress" class="form-ctrl" rows="2" required placeholder="Village/Street, City, State, PIN"></textarea>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-col full-width">
+              <label class="form-lbl">Payment Screenshot (optional) 📸</label>
+              <input type="file" id="addScreenshot" class="form-ctrl" accept="image/*">
+              <div id="addScreenshotPreview" style="margin-top:8px; display:none;">
+                <img id="addScreenshotImg" src="" alt="Preview" style="max-width:220px; max-height:150px; border-radius:8px; border:2px solid #22c55e;">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary-modal" id="btnCancelAdd">Cancel</button>
+          <button type="submit" class="btn-primary-modal">Save Submission</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="admin-toast" id="adminToast" style="display: none;">
+    <span class="toast-dot"></span>
+    <span id="adminToastMsg">Success</span>
+  </div>
+
+  <!-- Admin Script -->
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "sfarmart-server",
+  "version": "1.0.0",
+  "description": "Sfarmart24 Backend Server — MongoDB Atlas",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "mongodb": "^6.8.0"
+  },
+  "keywords": ["sfarmart24", "mongodb", "backend"],
+  "author": "Sfarmart24",
+  "license": "ISC"
+}

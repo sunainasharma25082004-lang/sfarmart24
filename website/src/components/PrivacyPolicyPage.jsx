@@ -577,8 +577,8 @@ export default function PrivacyPolicyPage({ onNavigateToHome, onOpenContact }) {
                     <div className="officer-detail-item">
                       <Phone size={18} className="detail-icon" />
                       <div>
-                        <strong>Toll-Free Helpline:</strong>
-                        <p>1800-123-FARMART (1800-123-3276) [Ext. 4 - Privacy Desk]</p>
+                        <strong>Helpline & WhatsApp Support:</strong>
+                        <p><a href="tel:+918146207005" style={{ color: 'inherit', textDecoration: 'none', fontWeight: 600 }}>+91 81462 07005</a></p>
                       </div>
                     </div>
 

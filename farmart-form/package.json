@@ -1,0 +1,18 @@
+{
+  "name": "sfarmart-form",
+  "version": "1.0.0",
+  "description": "Sfarmart24 Registration and Razorpay Payment Form",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx -y serve . -l 4173",
+    "start": "npx -y serve . -l 4173"
+  },
+  "keywords": [
+    "sfarmart24",
+    "razorpay",
+    "payment",
+    "form"
+  ],
+  "author": "Sfarmart24",
+  "license": "ISC"
+}

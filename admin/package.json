@@ -1,0 +1,18 @@
+{
+  "name": "sfarmart-admin",
+  "version": "1.0.0",
+  "description": "Sfarmart24 Partner Form & Payment Admin Dashboard",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx -y serve . -l 4174",
+    "start": "npx -y serve . -l 4174"
+  },
+  "keywords": [
+    "sfarmart24",
+    "admin",
+    "dashboard",
+    "crm"
+  ],
+  "author": "Sfarmart24",
+  "license": "ISC"
+}

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sfarmart24 - Partner Registration Form</title>
+  <meta name="description" content="Simple & Secure Partner Registration Form for Sfarmart24">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
+  <!-- Google Fonts: Roboto & Plus Jakarta Sans (Google Forms Feel) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Plus+Jakarta+Sans:wght@500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Razorpay SDK -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+
+  <div class="gform-page-wrapper">
+    <div class="gform-container">
+      
+      <!-- Top Decorative Strip -->
+      <div class="gform-top-accent"></div>
+
+      <!-- MAIN FORM VIEW -->
+      <div id="formSectionView">
+        
+        <!-- HEADER CARD -->
+        <header class="gform-card header-card">
+          <div class="header-brand-row">
+            <img src="assets/logo.png" alt="Sfarmart24" class="header-logo" onerror="this.style.display='none'">
+            <div class="header-brand-text">
+              <h1 class="header-title">Sfarmart24 - Partner Registration</h1>
+              <span class="header-badge">Official Onboarding Portal</span>
+            </div>
+          </div>
+          
+          <p class="header-description">
+            Sfarmart24 पार्टनर नेटवर्क से जुड़ने के लिए कृपया नीचे दिए गए 4 सरल विवरण भरें और ₹199 का ऑनबोर्डिंग शुल्क भुगतान करें। 
+          </p>
+          
+          <div class="header-divider"></div>
+          
+          <div class="header-info-row">
+            <span class="fee-pill">💰 Registration Fee: <strong>₹199</strong> (One-time)</span>
+            <span class="required-notice">* Indicates required question (अनिवार्य)</span>
+          </div>
+        </header>
+
+        <form id="googleStyleForm" novalidate>
+
+          <!-- QUESTION CARD 1: FULL NAME -->
+          <div class="gform-card question-card" id="cardName">
+            <label for="fullName" class="question-label">
+              1. Full Name / पूरा नाम <span class="required-star">*</span>
+            </label>
+            <span class="question-help">अपना पूरा नाम लिखें (उदा. रमेश कुमार)</span>
+            <div class="input-underline-wrap">
+              <input 
+                type="text" 
+                id="fullName" 
+                name="fullName" 
+                class="gform-input" 
+                placeholder="Your answer / आपका उत्तर" 
+                required
+                autocomplete="name"
+              >
+            </div>
+            <div class="gform-error" id="nameError"></div>
+          </div>
+
+          <!-- QUESTION CARD 2: MOBILE NUMBER -->
+          <div class="gform-card question-card" id="cardMobile">
+            <label for="mobileNumber" class="question-label">
+              2. Mobile Number / मोबाइल नंबर <span class="required-star">*</span>
+            </label>
+            <span class="question-help">10-अंकों का WhatsApp / कॉलिंग नंबर</span>
+            <div class="input-underline-wrap phone-wrap">
+              <span class="phone-prefix">+91</span>
+              <input 
+                type="tel" 
+                id="mobileNumber" 
+                name="mobileNumber" 
+                class="gform-input phone-input" 
+                placeholder="10-digit number (उदा. 9876543210)" 
+                maxlength="10" 
+                required
+                autocomplete="tel-national"
+              >
+            </div>
+            <div class="gform-error" id="mobileError"></div>
+          </div>
+
+          <!-- QUESTION CARD 3: EMAIL ID -->
+          <div class="gform-card question-card" id="cardEmail">
+            <label for="email" class="question-label">
+              3. Email ID / ईमेल आईडी <span class="required-star">*</span>
+            </label>
+            <span class="question-help">रसीद और अपडेट प्राप्त करने के लिए ईमेल पता</span>
+            <div class="input-underline-wrap">
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                class="gform-input" 
+                placeholder="Your email (उदा. ramesh@gmail.com)" 
+                required
+                autocomplete="email"
+              >
+            </div>
+            <div class="gform-error" id="emailError"></div>
+          </div>
+
+          <!-- QUESTION CARD 4: ADDRESS -->
+          <div class="gform-card question-card" id="cardAddress">
+            <label for="address" class="question-label">
+              4. Address / पूरा पता <span class="required-star">*</span>
+            </label>
+            <span class="question-help">मकान/दुकान नं., गाँव/शहर, जिला, राज्य और पिन कोड</span>
+            <div class="input-underline-wrap">
+              <textarea 
+                id="address" 
+                name="address" 
+                class="gform-textarea" 
+                rows="2" 
+                placeholder="Your address / आपका पूरा पता" 
+                required
+              ></textarea>
+            </div>
+            <div class="gform-error" id="addressError"></div>
+          </div>
+
+          <!-- QUESTION CARD 5: PAYMENT & SCANNER (OPTIONAL) -->
+          <div class="gform-card question-card payment-question-card" id="cardPayment">
+            <label class="question-label">
+              5. Onboarding Fee Payment / ₹199 फीस भुगतान <span class="optional-pill">(Optional / ऐच्छिक)</span>
+            </label>
+            <span class="question-help">
+              यदि आप अभी भुगतान करना चाहते हैं, तो नीचे दिए गए <strong>2 आसान तरीकों</strong> में से किसी से भी कर सकते हैं (अनिवार्य नहीं है):
+            </span>
+
+            <div class="payment-box-wrapper">
+              
+              <!-- OPTION A: SCANNER -->
+              <div class="payment-method-block">
+                <div class="method-header">
+                  <span class="method-tag">तरीका 1 (Method 1)</span>
+                  <strong class="method-title">UPI QR Code स्कैन करके पे करें:</strong>
+                </div>
+                <p class="method-subtitle">GPay, PhonePe, Paytm या किसी भी UPI ऐप से यह QR कोड स्कैन करें और ₹199 भेजें:</p>
+
+                <!-- Clean QR Container -->
+                <div class="qr-clean-container">
+                  <img src="assets/razorpay_qr.png" alt="Sfarmart24 Official Razorpay UPI Scanner" class="gform-qr-img">
+                </div>
+
+                <!-- UPI ID Copy -->
+                <div class="upi-clean-strip">
+                  <span class="upi-clean-label">UPI ID:</span>
+                  <code class="upi-clean-code" id="upiIdCode">SFARMART24@razorpay</code>
+                  <button type="button" class="btn-clean-copy" id="btnCopyUpi">Copy</button>
+                </div>
+
+                <!-- UTR / UPI Ref ID Input (Optional) -->
+                <div class="utr-input-box" style="margin: 14px 0 10px 0;">
+                  <label for="utrInput" style="display:block; font-size:13px; font-weight:600; color:#334155; margin-bottom:5px;">
+                    UPI UTR / Ref No. (वैकल्पिक / Optional):
+                  </label>
+                  <input 
+                    type="text" 
+                    id="utrInput" 
+                    name="utrInput" 
+                    placeholder="उदा. 423871928374 (12-अंकों का UPI UTR)"
+                    class="gform-input"
+                    maxlength="25"
+                    style="border-bottom: 1.5px solid #cbd5e1; width:100%; font-size:14px; padding: 6px 0; background:transparent;"
+                  >
+                  <span class="utr-subnote" style="font-size:11.5px; color:#64748b; margin-top:3px; display:block;">
+                    पेमेंट के बाद मिलने वाला 12-अंकों का UPI Ref / UTR नंबर या नीचे screenshot upload करें।
+                  </span>
+                </div>
+
+                <!-- Payment Screenshot Upload -->
+                <div class="screenshot-upload-box" id="screenshotUploadBox">
+                  <label for="paymentScreenshot" class="screenshot-upload-label">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    <span class="screenshot-upload-title">Payment screenshot यहाँ upload करें</span>
+                    <span class="screenshot-upload-hint">GPay / PhonePe / Paytm का payment confirmation screenshot upload करें (JPG, PNG, JPEG)</span>
+                    <span class="screenshot-upload-btn">📎 Choose Screenshot File</span>
+                  </label>
+                  <input 
+                    type="file" 
+                    id="paymentScreenshot" 
+                    name="paymentScreenshot"
+                    accept="image/jpeg,image/jpg,image/png,image/webp"
+                    class="screenshot-file-input"
+                  >
+                  <!-- Preview -->
+                  <div class="screenshot-preview-wrap" id="screenshotPreviewWrap" style="display:none;">
+                    <img id="screenshotPreviewImg" class="screenshot-preview-img" alt="Payment Screenshot">
+                    <button type="button" class="btn-remove-screenshot" id="btnRemoveScreenshot">✕ Remove</button>
+                  </div>
+                  <span class="utr-subnote" style="margin-top:6px;">यदि आप नीचे Razorpay Online से पे कर रहे हैं तो screenshot जरूरी नहीं — payment ID automatically save होगा।</span>
+                </div>
+              </div>
+
+              <div class="or-separator">
+                <span>अथवा (OR)</span>
+              </div>
+
+              <!-- OPTION B: RAZORPAY ONLINE BUTTON -->
+              <div class="payment-method-block rzp-block">
+                <div class="method-header">
+                  <span class="method-tag tag-blue">तरीका 2 (Method 2)</span>
+                  <strong class="method-title">Razorpay से डायरेक्ट ऑनलाइन पे करें:</strong>
+                </div>
+                <p class="method-subtitle">Cards, UPI App, NetBanking, या Wallet से एक क्लिक में सुरक्षित ऑनलाइन पेमेंट करें:</p>
+
+                <button type="button" class="btn-rzp-checkout" id="btnRazorpayCheckout">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                  <span>Pay ₹199 via Razorpay Online</span>
+                </button>
+                <span class="rzp-helper-text">100% Safe & Instant Automated Confirmation</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- BOTTOM ACTION BAR -->
+          <div class="form-bottom-actions">
+            <button type="button" class="btn-gform-rzp-direct" id="btnBottomRazorpay">
+              ⚡ Pay ₹199 via Razorpay &amp; Submit
+            </button>
+            <button type="submit" class="btn-gform-submit" id="btnSubmitForm">
+              Submit / फॉर्म सबमिट करें
+            </button>
+            <button type="button" class="btn-gform-clear" id="btnClearForm">
+              Clear form
+            </button>
+          </div>
+
+        </form>
+
+        <!-- Google Forms Footer Disclaimer -->
+        <footer class="gform-footer-note">
+          <p>Never submit passwords through Sfarmart Forms.</p>
+          <div class="gform-footer-links">
+            <span>Sfarmart24 Agri-Tech Network</span> • 
+            <span>Helpline: <a href="tel:+918146207005" style="color:inherit; font-weight:600;">+91 81462 07005</a></span> • 
+            <span>256-Bit SSL Protected</span>
+          </div>
+        </footer>
+
+      </div>
+
+      <!-- SUCCESS CONFIRMATION VIEW (Shown after submission) -->
+      <div id="successSectionView" class="gform-card success-card" style="display: none;">
+        <div class="success-top-bar"></div>
+        <div class="success-body">
+          <div class="success-check-icon">✓</div>
+          <h2 class="success-title">Your response has been recorded!</h2>
+          <p class="success-hindi">आपका फॉर्म और भुगतान सफलतापूर्वक दर्ज हो चुका है।</p>
+
+          <!-- Clean Receipt Box -->
+          <div class="success-receipt-box" id="printableReceipt">
+            <div class="receipt-header-row">
+              <span class="receipt-brand">SFARMART24</span>
+              <span class="receipt-tag">Official Registration Receipt</span>
+            </div>
+            
+            <div class="receipt-details-list">
+              <div class="rcpt-item">
+                <span class="rcpt-k">Registration ID:</span>
+                <span class="rcpt-v font-mono font-bold" id="resRegId">SFM-2026-0000</span>
+              </div>
+              <div class="rcpt-item">
+                <span class="rcpt-k">Payment Reference / UTR:</span>
+                <span class="rcpt-v font-mono text-green" id="resPaymentRef">pay_XXXXXXXX</span>
+              </div>
+              <div class="rcpt-item">
+                <span class="rcpt-k">Date & Time:</span>
+                <span class="rcpt-v" id="resDateTime">-</span>
+              </div>
+              <div class="rcpt-item">
+                <span class="rcpt-k">Full Name:</span>
+                <span class="rcpt-v font-bold" id="resName">-</span>
+              </div>
+              <div class="rcpt-item">
+                <span class="rcpt-k">Mobile Number:</span>
+                <span class="rcpt-v font-mono" id="resMobile">-</span>
+              </div>
+              <div class="rcpt-item">
+                <span class="rcpt-k">Email ID:</span>
+                <span class="rcpt-v" id="resEmail">-</span>
+              </div>
+              <div class="rcpt-item">
+                <span class="rcpt-k">Address:</span>
+                <span class="rcpt-v" id="resAddress">-</span>
+              </div>
+              <div class="rcpt-item total-item">
+                <span class="rcpt-k">Fee Amount Paid:</span>
+                <span class="rcpt-v total-v" id="resAmount">₹199.00</span>
+              </div>
+            </div>
+
+            <div class="receipt-verified-footer">
+              <span>VERIFIED ONBOARDING • SFARMART24</span>
+            </div>
+          </div>
+
+          <div class="success-actions-row">
+            <button type="button" class="btn-print-slip" onclick="window.print()">
+              🖨️ Print / Save Receipt
+            </button>
+            <a href="https://api.whatsapp.com/send?phone=918146207005&text=Hello%20Sfarmart24,%20I%20have%20submitted%20my%20onboarding%20application" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; justify-content:center; gap:6px; background:#16a34a; color:#fff; padding:10px 18px; border-radius:6px; text-decoration:none; font-size:13px; font-weight:600; text-align:center;">
+              💬 WhatsApp Support (+91 81462 07005)
+            </a>
+            <a href="javascript:void(0)" class="link-submit-another" id="btnSubmitAnother">
+              Submit another response / दूसरा फॉर्म भरें
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast Message -->
+  <div class="gform-toast" id="gformToast" style="display: none;">
+    <span id="toastText">Copied!</span>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

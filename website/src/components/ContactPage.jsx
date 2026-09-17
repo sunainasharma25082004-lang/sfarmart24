@@ -195,8 +195,8 @@ export default function ContactPage() {
                   <div className="cp-link-item">
                     <Phone size={18} className="cp-icon-green" />
                     <div>
-                      <strong>Kisan Toll-Free Helpline</strong>
-                      <p>1800-123-FARMART (1800-123-3276)</p>
+                      <strong>Kisan Helpline & Support</strong>
+                      <p><a href="tel:+918146207005" style={{ color: 'inherit', textDecoration: 'none', fontWeight: 600 }}>+91 81462 07005</a></p>
                       <span className="cp-sub-timing"><Clock size={12} /> Mon - Sat: 7:00 AM - 9:00 PM</span>
                     </div>
                   </div>
