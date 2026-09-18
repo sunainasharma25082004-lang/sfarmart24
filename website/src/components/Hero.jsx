@@ -29,13 +29,13 @@ export default function Hero({ onExploreClick, onOpenShowcase, onOpenDigitalPart
 
           {/* Eye-catching Digital Partner Callout Banner */}
           {onOpenDigitalPartner && (
-            <button className="hero-dp-hot-pill" onClick={onOpenDigitalPartner}>
+            <a href="https://www.sfarmart24.info/" target="_blank" className="hero-dp-hot-pill">
               <span className="hot-tag">NEW 🔥</span>
               <span className="hot-text">
                 <strong>Digital Partner Openings (₹199):</strong> Scan Razorpay QR &amp; Apply Online
               </span>
               <span className="hot-arrow">&rarr;</span>
-            </button>
+            </a>
           )}
 
           <h1 className="hero-main-title">
@@ -51,9 +51,9 @@ export default function Hero({ onExploreClick, onOpenShowcase, onOpenDigitalPart
 
           <div className="hero-cta-group">
             {onOpenDigitalPartner && (
-              <button className="btn btn-primary hero-dp-glow-btn" onClick={onOpenDigitalPartner}>
+              <a href="https://www.sfarmart24.info/" target="_blank" className="btn btn-primary hero-dp-glow-btn">
                 <span>📲 Apply Digital Partner (₹199)</span>
-              </button>
+              </a>
             )}
 
             <button className="btn btn-earth hero-glow-cta" onClick={onOpenShowcase}>

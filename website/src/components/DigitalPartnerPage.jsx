@@ -1,45 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Smartphone,
-  CheckCircle2,
-  TrendingUp,
-  Award,
+  ArrowRight,
   Users,
   QrCode,
-  Globe,
-  ShieldCheck,
-  Zap,
-  ArrowRight,
-  Send,
-  X,
   Share2,
-  BookOpen,
+  Zap,
+  Award,
+  ShieldCheck,
   DollarSign,
   Laptop,
-  CreditCard
+  TrendingUp,
+  Globe,
+  CheckCircle2
 } from 'lucide-react';
-import DigitalPartnerApplyForm from './DigitalPartnerApplyForm';
 import './DigitalPartnerPage.css';
 
 export default function DigitalPartnerPage({ onOpenContact, onBackToEcosystem }) {
-  const [showApplyModal, setShowApplyModal] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({
-    fullName: '',
-    phone: '',
-    email: '',
-    city: '',
-    currentRole: 'Student'
-  });
-
-  const scrollToApply = () => {
-    const el = document.getElementById('digital-partner-apply');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      setShowApplyModal(true);
-    }
-  };
+  const externalFormUrl = 'https://www.sfarmart24.info';
 
   const whoCanBecome = [
     { title: 'Student', desc: 'Tech-savvy youth seeking part-time digital income while completing studies.' },
@@ -50,31 +28,11 @@ export default function DigitalPartnerPage({ onOpenContact, onBackToEcosystem })
   ];
 
   const whatYouWillDo = [
-    {
-      icon: Users,
-      title: 'Onboard Local Customers & Retailers',
-      desc: 'Introduce households, Kirana stores, and cloud kitchens to the Farmart app ecosystem.'
-    },
-    {
-      icon: QrCode,
-      title: 'Drive App Downloads & QR Scans',
-      desc: 'Deploy custom QR codes, referral links, and local promotional banners in your region.'
-    },
-    {
-      icon: Share2,
-      title: 'Manage Digital Order Campaigns',
-      desc: 'Share daily fresh produce catalogs, organic offers, and discount codes on WhatsApp groups.'
-    },
-    {
-      icon: Smartphone,
-      title: 'Assist Villagers with Tech Orders',
-      desc: 'Help non-smartphone users place digital orders for farm inputs and household groceries.'
-    },
-    {
-      icon: Globe,
-      title: 'Build Local Customer Networks',
-      desc: 'Cultivate a loyal base of recurring buyers to earn automated monthly commissions.'
-    }
+    { icon: Users, title: 'Onboard Local Customers & Retailers', desc: 'Introduce households, Kirana stores, and cloud kitchens to the Farmart app ecosystem.' },
+    { icon: QrCode, title: 'Drive App Downloads & QR Scans', desc: 'Deploy custom QR codes, referral links, and local promotional banners in your region.' },
+    { icon: Share2, title: 'Manage Digital Order Campaigns', desc: 'Share daily fresh produce catalogs, organic offers, and discount codes on WhatsApp groups.' },
+    { icon: Smartphone, title: 'Assist Villagers with Tech Orders', desc: 'Help non-smartphone users place digital orders for farm inputs and household groceries.' },
+    { icon: Globe, title: 'Build Local Customer Networks', desc: 'Cultivate a loyal base of recurring buyers to earn automated monthly commissions.' }
   ];
 
   const whatYouReceive = [
@@ -88,94 +46,43 @@ export default function DigitalPartnerPage({ onOpenContact, onBackToEcosystem })
   ];
 
   const whyChooseHighlights = [
-    {
-      icon: ShieldCheck,
-      title: 'Zero Physical Inventory Risk',
-      desc: 'No stock holding or warehousing required. Farmart manages all fulfillment & delivery logistics.'
-    },
-    {
-      icon: DollarSign,
-      title: 'High-Margin Recurring Revenue',
-      desc: 'Build passive income streams ranging from ₹20,000 to ₹80,000+ per month as your user base scales.'
-    },
-    {
-      icon: Laptop,
-      title: 'Work-from-Anywhere Model',
-      desc: '100% digital operations powered by your smartphone — operate from home, campus, or office.'
-    },
-    {
-      icon: TrendingUp,
-      title: 'High Demand Fresh Network',
-      desc: 'Leverage India’s rapidly growing demand for chemical-free farm produce and organic staples.'
-    },
-    {
-      icon: Zap,
-      title: 'Transparent Automated Payouts',
-      desc: 'No waiting or manual claims. Every order commission is credited directly to your bank account.'
-    },
-    {
-      icon: Award,
-      title: 'Recognition & Tech Rewards',
-      desc: 'Win smartphones, laptops, study tours, and Dream Reward points for top onboarding milestones.'
-    }
+    { icon: ShieldCheck, title: 'Zero Physical Inventory Risk', desc: 'No stock holding or warehousing required. Farmart manages all fulfillment & delivery logistics.' },
+    { icon: DollarSign, title: 'High-Margin Recurring Revenue', desc: 'Build passive income streams ranging from ₹20,000 to ₹80,000+ per month as your user base scales.' },
+    { icon: Laptop, title: 'Work-from-Anywhere Model', desc: '100% digital operations powered by your smartphone — operate from home, campus, or office.' },
+    { icon: TrendingUp, title: 'High Demand Fresh Network', desc: 'Leverage India’s rapidly growing demand for chemical-free farm produce and organic staples.' },
+    { icon: Zap, title: 'Transparent Automated Payouts', desc: 'No waiting or manual claims. Every order commission is credited directly to your bank account.' },
+    { icon: Award, title: 'Recognition & Tech Rewards', desc: 'Win smartphones, laptops, study tours, and Dream Reward points for top onboarding milestones.' }
   ];
-
-  const handleApplySubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
 
   return (
     <div className="digital-partner-page">
-      {/* 1. Hero Banner */}
+      {/* Hero Banner */}
       <section className="dp-hero-section">
         <div className="container">
           <div className="dp-hero-card">
-            <button className="dp-back-btn" onClick={onBackToEcosystem}>
-              ← Back to All Ecosystem Verticals
-            </button>
-
-            <div className="dp-badge">
-              <Smartphone size={16} />
-              <span>Tech & Affiliate Vertical &bull; ₹199 Starter Kit</span>
-            </div>
-
+            <button className="dp-back-btn" onClick={onBackToEcosystem}>← Back to All Ecosystem Verticals</button>
+            <div className="dp-badge"><Smartphone size={16} /><span>Tech & Affiliate Vertical ; ₹199 Starter Kit</span></div>
             <h1 className="dp-hero-title">Farmart Digital Business Partner</h1>
-            <p className="dp-tagline">"Start Your Digital Business with Sfarmart24 &bull; ₹199 Only"</p>
-
-            {/* 2. Intro Paragraph */}
-            <p className="dp-intro-paragraph">
-              Become an official Sfarmart24 Digital Business Partner and spearhead the digital transformation of local commerce in your region. Using our powerful mobile app tools, referral systems, and partner dashboard, you can onboard local households, Kirana stores, and home chefs — building a high-margin digital business with lifetime recurring commissions (5% - 8%) and zero physical inventory risk.
-            </p>
-
+            <p className="dp-tagline">"Start Your Digital Business with Sfarmart24 ; ₹199 Only"</p>
             <div className="dp-hero-actions">
-              <button className="btn btn-primary dp-teal-btn" onClick={scrollToApply}>
+              <a href={externalFormUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary dp-teal-btn">
                 <span>Apply for Digital Partnership (₹199)</span>
                 <ArrowRight size={18} />
-              </button>
-              <button className="btn btn-secondary" onClick={onOpenContact}>
-                <span>Request Tech Information Kit</span>
-              </button>
+              </a>
+              <button className="btn btn-secondary" onClick={onOpenContact}>Request Tech Information Kit</button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 2. Top Prominent Apply Section with Razorpay Standee QR & Clean Google Form */}
-      <DigitalPartnerApplyForm onOpenContact={onOpenContact} />
-
-      {/* 3. Who Can Become */}
+      {/* Who Can Become */}
       <section className="dp-who-section section-padding">
         <div className="container">
           <div className="section-header">
-            <div className="badge-tag">
-              <Users size={16} />
-              <span>Eligible Profiles</span>
-            </div>
+            <div className="badge-tag"><Users size={16} /><span>Eligible Profiles</span></div>
             <h2>Who Can Become a Digital Business Partner?</h2>
             <p>Designed for anyone with a smartphone, tech enthusiasm, and drive for community impact.</p>
           </div>
-
           <div className="dp-who-grid">
             {whoCanBecome.map((item, idx) => (
               <div key={idx} className="dp-who-card">
@@ -188,27 +95,21 @@ export default function DigitalPartnerPage({ onOpenContact, onBackToEcosystem })
         </div>
       </section>
 
-      {/* 4. What You'll Do (Bullet List with Icons) */}
+      {/* What You'll Do */}
       <section className="dp-do-section section-padding">
         <div className="container">
           <div className="dp-do-wrapper">
             <div className="section-header text-left">
-              <div className="badge-tag">
-                <Zap size={16} />
-                <span>Daily Activities</span>
-              </div>
+              <div className="badge-tag"><Zap size={16} /><span>Daily Activities</span></div>
               <h2>What You'll Do</h2>
               <p>Core responsibilities driving customer onboarding and digital sales volume.</p>
             </div>
-
             <div className="dp-do-grid">
               {whatYouWillDo.map((item, idx) => {
                 const DIcon = item.icon;
                 return (
                   <div key={idx} className="dp-do-card">
-                    <div className="dp-do-icon-box">
-                      <DIcon size={24} />
-                    </div>
+                    <div className="dp-do-icon-box"><DIcon size={24} /></div>
                     <div>
                       <h3 className="dp-do-title">{item.title}</h3>
                       <p className="dp-do-desc">{item.desc}</p>
@@ -221,24 +122,18 @@ export default function DigitalPartnerPage({ onOpenContact, onBackToEcosystem })
         </div>
       </section>
 
-      {/* 5. What You Receive (7 Checklist Cards) */}
+      {/* What You Receive */}
       <section className="dp-receive-section section-padding">
         <div className="container">
           <div className="section-header">
-            <div className="badge-tag">
-              <Award size={16} />
-              <span>Partner Toolkit</span>
-            </div>
+            <div className="badge-tag"><Award size={16} /><span>Partner Toolkit</span></div>
             <h2>What You Receive</h2>
             <p>Complete tech infrastructure, marketing tools, and dedicated mentorship support.</p>
           </div>
-
           <div className="dp-receive-grid">
             {whatYouReceive.map((item, idx) => (
               <div key={idx} className="dp-receive-card">
-                <div className="dp-receive-check">
-                  <CheckCircle2 size={22} />
-                </div>
+                <div className="dp-receive-check"><CheckCircle2 size={22} /></div>
                 <div>
                   <h3 className="dp-receive-title">{item.title}</h3>
                   <p className="dp-receive-desc">{item.desc}</p>
@@ -249,26 +144,20 @@ export default function DigitalPartnerPage({ onOpenContact, onBackToEcosystem })
         </div>
       </section>
 
-      {/* 6. Why Choose Farmart Digital Business Partner (6 Highlight Points) */}
+      {/* Why Choose */}
       <section className="dp-why-section section-padding">
         <div className="container">
           <div className="section-header">
-            <div className="badge-tag">
-              <TrendingUp size={16} />
-              <span>Key Advantages</span>
-            </div>
+            <div className="badge-tag"><TrendingUp size={16} /><span>Key Advantages</span></div>
             <h2>Why Choose Farmart Digital Business Partner?</h2>
             <p>Build a sustainable, high-income digital business with zero capital risk.</p>
           </div>
-
           <div className="dp-why-grid">
             {whyChooseHighlights.map((h, idx) => {
               const HIcon = h.icon;
               return (
                 <div key={idx} className="dp-why-card">
-                  <div className="dp-why-icon-box">
-                    <HIcon size={26} />
-                  </div>
+                  <div className="dp-why-icon-box"><HIcon size={26} /></div>
                   <h3 className="dp-why-title">{h.title}</h3>
                   <p className="dp-why-desc">{h.desc}</p>
                 </div>
@@ -278,136 +167,20 @@ export default function DigitalPartnerPage({ onOpenContact, onBackToEcosystem })
         </div>
       </section>
 
-      {/* Closing Tagline Banner */}
+      {/* Closing CTA */}
       <section className="dp-cta-section">
         <div className="container">
           <div className="dp-cta-card">
-            <div className="dp-cta-icon">
-              <Smartphone size={32} />
-            </div>
-
-            <h2 className="dp-cta-tagline">
-              "Build Your Digital Business. Serve Your Community. Grow with Farmart."
-            </h2>
-
-            <p className="dp-cta-sub">
-              Start earning lifetime recurring commissions today. One-time digital onboarding kit &amp; verification fee: ₹199 only.
-            </p>
-
-            <button className="btn btn-primary dp-teal-btn dp-main-btn" onClick={scrollToApply}>
+            <div className="dp-cta-icon"><Smartphone size={32} /></div>
+            <h2 className="dp-cta-tagline">"Build Your Digital Business. Serve Your Community. Grow with Farmart."</h2>
+            <p className="dp-cta-sub">Start earning lifetime recurring commissions today. One-time digital onboarding kit & verification fee: ₹199 only.</p>
+            <a href={externalFormUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary dp-teal-btn dp-main-btn">
               <span>Apply for Digital Partnership (₹199)</span>
               <ArrowRight size={18} />
-            </button>
+            </a>
           </div>
         </div>
       </section>
-
-      {/* Registration Modal */}
-      {showApplyModal && (
-        <div className="dp-modal-overlay">
-          <div className="dp-modal-container fade-in">
-            <div className="dp-modal-header">
-              <div>
-                <h3>Apply for Digital Partnership</h3>
-                <span className="modal-fee-subtitle">Registration Fee: ₹199 Only &bull; One-Time Starter Kit</span>
-              </div>
-              <button className="modal-close-btn" onClick={() => setShowApplyModal(false)}>
-                <X size={20} />
-              </button>
-            </div>
-
-            <div className="dp-modal-body">
-              {submitted ? (
-                <div className="dp-submit-success">
-                  <CheckCircle2 size={50} className="success-icon" />
-                  <h4>Application Details Saved!</h4>
-                  <p>
-                    Please complete the ₹199 onboarding payment via Razorpay QR to activate your Partner QR &amp; dashboard.
-                  </p>
-                  <button
-                    className="btn btn-primary dp-teal-btn full-btn"
-                    onClick={() => {
-                      setShowApplyModal(false);
-                      scrollToApply();
-                    }}
-                  >
-                    <span>Proceed to Razorpay ₹199 Payment &amp; UTR Entry &rarr;</span>
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleApplySubmit} className="dp-apply-form">
-                  <div className="modal-fast-track-tip">
-                    <CreditCard size={16} />
-                    <span>Includes Custom Partner QR + Mobile Dashboard + 5%-8% Lifetime Commission for ₹199</span>
-                  </div>
-                  <div className="form-group">
-                    <label>Full Name *</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. Rohan Verma"
-                      value={formData.fullName}
-                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label>Mobile Number (WhatsApp) *</label>
-                    <input
-                      type="tel"
-                      required
-                      placeholder="e.g. 9876543210"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label>Email Address *</label>
-                    <input
-                      type="email"
-                      required
-                      placeholder="rohan@example.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label>City & District *</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. Patna, Bihar"
-                      value={formData.city}
-                      onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label>Current Profession</label>
-                    <select
-                      value={formData.currentRole}
-                      onChange={(e) => setFormData({ ...formData, currentRole: e.target.value })}
-                    >
-                      <option value="Student">Student / College Youth</option>
-                      <option value="Working Professional">Working Professional</option>
-                      <option value="Homemaker">Homemaker</option>
-                      <option value="Shop Owner">Shop Owner / CSC Operator</option>
-                      <option value="Freelancer">Freelancer / Digital Marketer</option>
-                    </select>
-                  </div>
-
-                  <button type="submit" className="btn btn-primary dp-teal-btn full-btn">
-                    <Send size={16} />
-                    <span>Submit Partner Application</span>
-                  </button>
-                </form>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
