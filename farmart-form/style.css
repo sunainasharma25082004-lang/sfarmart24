@@ -347,20 +347,88 @@ body {
 /* QR Code Container */
 .qr-clean-container {
   background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  padding: 6px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 8px;
   width: fit-content;
-  margin: 0 auto 10px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  max-width: 270px;
+  margin: 0 auto 12px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.qr-clean-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
 }
 
 .gform-qr-img {
   display: block;
   width: 100%;
-  max-width: 130px;
+  max-width: 250px;
   height: auto;
-  border-radius: 4px;
+  border-radius: 6px;
+}
+
+/* Tap to Pay button on Mobile */
+.upi-mobile-pay-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 4px auto 14px;
+  width: 100%;
+}
+
+.btn-upi-mobile-pay {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #15803d 0%, #16a34a 100%);
+  color: #ffffff !important;
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(21, 128, 61, 0.25);
+  transition: all 0.2s ease;
+  width: 100%;
+  max-width: 320px;
+  text-align: center;
+}
+
+.btn-upi-mobile-pay:hover {
+  background: linear-gradient(135deg, #166534 0%, #15803d 100%);
+  box-shadow: 0 4px 14px rgba(21, 128, 61, 0.35);
+  transform: translateY(-1px);
+}
+
+.mobile-pay-hint {
+  font-size: 0.76rem;
+  color: #166534;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+/* Payment Verification Box */
+.payment-verification-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 14px;
+  margin-top: 14px;
+}
+
+.verification-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #0f172a;
+  font-size: 0.88rem;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 8px;
 }
 
 /* UPI ID Copy Strip */
@@ -499,62 +567,7 @@ body {
 }
 
 /* Separator OR */
-.or-separator {
-  text-align: center;
-  position: relative;
-}
 
-.or-separator::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 0; right: 0;
-  height: 1px;
-  background: var(--gform-border);
-}
-
-.or-separator span {
-  position: relative;
-  background: var(--gform-card-bg);
-  padding: 0 12px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--gform-text-muted);
-}
-
-/* Razorpay Button */
-.btn-rzp-checkout {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  padding: 12px 16px;
-  background: linear-gradient(135deg, #15803d 0%, #16a34a 100%);
-  color: #ffffff;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(22, 163, 74, 0.3);
-  transition: all 0.2s ease;
-}
-
-.btn-rzp-checkout:hover {
-  background: linear-gradient(135deg, #166534 0%, #15803d 100%);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(22, 163, 74, 0.4);
-}
-
-.rzp-helper-text {
-  display: block;
-  font-size: 0.76rem;
-  color: #166534;
-  text-align: center;
-  margin-top: 6px;
-  font-weight: 500;
-}
 
 /* ==========================================================================
    BOTTOM ACTION BAR (SUBMIT & CLEAR)
@@ -568,49 +581,26 @@ body {
   margin-bottom: 24px;
 }
 
-.btn-gform-rzp-direct {
-  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-  color: #ffffff;
-  border: none;
-  border-radius: 4px;
-  padding: 10px 20px;
-  font-family: inherit;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  letter-spacing: 0.02em;
-  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.35);
-  transition: all 0.2s;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.btn-gform-rzp-direct:hover {
-  background: linear-gradient(135deg, #0369a1 0%, #075985 100%);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(2, 132, 199, 0.45);
-}
-
-/* Google Forms style purple/green submit button */
+/* Google Forms style green submit button */
 .btn-gform-submit {
-  background-color: var(--gform-primary);
+  background: linear-gradient(135deg, #15803d 0%, #16a34a 100%);
   color: #ffffff;
   border: none;
-  border-radius: 4px;
-  padding: 10px 24px;
+  border-radius: 6px;
+  padding: 12px 28px;
   font-family: inherit;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  letter-spacing: 0.02em;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-  transition: background-color 0.2s, box-shadow 0.2s;
+  letter-spacing: 0.01em;
+  box-shadow: 0 2px 6px rgba(21, 128, 61, 0.3);
+  transition: all 0.2s ease;
 }
 
 .btn-gform-submit:hover {
-  background-color: var(--gform-primary-dark);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+  background: linear-gradient(135deg, #166534 0%, #15803d 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(21, 128, 61, 0.4);
 }
 
 .btn-gform-clear {

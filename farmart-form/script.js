@@ -4,12 +4,11 @@
  */
 
 // ==========================================================================
-// 1. CONFIGURATION
+// 1. CONFIGURATION (Direct Camera Scan & UPI - No Razorpay Keys Required)
 // ==========================================================================
-const RAZORPAY_KEY_ID = "rzp_live_Td3vCBrNQSYyl8"; // Official Razorpay Live API Key
 const REGISTRATION_AMOUNT = 199;
 const MERCHANT_NAME = "Sfarmart24";
-const MERCHANT_UPI = "SFARMART24@razorpay";
+const MERCHANT_UPI = "sfarmart24319237.rzp@rxairtel"; // Official UPI ID from QR Scanner
 const BACKEND_API_URL = "https://sfarmart24-web-api.onrender.com/api/submissions";
 
 // ==========================================================================
@@ -38,7 +37,6 @@ const emailError = document.getElementById('emailError');
 const addressError = document.getElementById('addressError');
 
 // Buttons
-const btnRazorpayCheckout = document.getElementById('btnRazorpayCheckout');
 const btnClearForm = document.getElementById('btnClearForm');
 const btnSubmitAnother = document.getElementById('btnSubmitAnother');
 const btnCopyUpi = document.getElementById('btnCopyUpi');
@@ -83,10 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Submit another response
   btnSubmitAnother.addEventListener('click', handleResetToForm);
 
-  // Actions
-  if (btnRazorpayCheckout) btnRazorpayCheckout.addEventListener('click', handleRazorpayPayment);
-  const btnBottomRazorpay = document.getElementById('btnBottomRazorpay');
-  if (btnBottomRazorpay) btnBottomRazorpay.addEventListener('click', handleRazorpayPayment);
+  // Form Submit
   form.addEventListener('submit', handleFormSubmitWithUtr);
 
   // ── Screenshot preview & remove ───────────────────────────────────────
@@ -227,69 +222,9 @@ function clearCardError(cardEl, errorEl) {
 }
 
 // ==========================================================================
-// 5. PAYMENT HANDLERS
 // ==========================================================================
-
-// Method A: Click "Pay via Razorpay Online"
-async function handleRazorpayPayment() {
-  if (!validateFormFields()) {
-    showToast('कृपया पहले पूछे गए विवरण सही से भरें');
-    return;
-  }
-
-  const nameVal = fullNameInput.value.trim();
-  const mobileVal = mobileNumberInput.value.trim();
-  const emailVal = emailInput.value.trim();
-  const addressVal = addressInput.value.trim();
-
-  // If dummy key is active
-  if (RAZORPAY_KEY_ID === "rzp_test_placeholder_key" || RAZORPAY_KEY_ID.includes("placeholder")) {
-    const isConfirm = confirm(
-      `[DEMO MODE]\n\nRazorpay Dummy Key ID सेट है।\n\nक्या आप ₹${REGISTRATION_AMOUNT} का टेस्ट पेमेंट पूरा करके रसीद देखना चाहते हैं?`
-    );
-
-    if (isConfirm) {
-      const demoPayId = 'pay_demo_' + Math.random().toString(36).substring(2, 11).toUpperCase();
-      await completeSubmission(demoPayId, 'Razorpay Online (Demo)');
-    }
-    return;
-  }
-
-  // Live/Test Real Key Execution
-  if (typeof window.Razorpay === 'undefined') {
-    alert('Razorpay Checkout SDK लोड नहीं हो पाया। कृपया पेज रीफ्रेश करें।');
-    return;
-  }
-
-  const options = {
-    key: RAZORPAY_KEY_ID,
-    amount: REGISTRATION_AMOUNT * 100, // paise
-    currency: "INR",
-    name: MERCHANT_NAME,
-    description: "Partner Registration Onboarding Fee",
-    image: "assets/logo.png",
-    prefill: {
-      name: nameVal,
-      email: emailVal,
-      contact: mobileVal
-    },
-    notes: {
-      address: addressVal,
-      purpose: "Partner Registration"
-    },
-    theme: {
-      color: "#15803d"
-    },
-    handler: async function(response) {
-      if (response && response.razorpay_payment_id) {
-        await completeSubmission(response.razorpay_payment_id, 'Razorpay Online');
-      }
-    }
-  };
-
-  const rzp = new window.Razorpay(options);
-  rzp.open();
-}
+// 5. PAYMENT & COMPRESSION HELPERS
+// ==========================================================================
 
 // Helper: Compress screenshot image before sending to prevent huge payloads and lag
 function compressImageFile(file, maxWidth = 1200, maxHeight = 1200, quality = 0.82) {
@@ -361,8 +296,8 @@ async function handleFormSubmitWithUtr(e) {
       return;
     }
 
-    // If UTR is blank and no screenshot, allow submission as PENDING (payment not mandatory)
-    await completeSubmission('PENDING', 'Pending (To be paid)', 'PENDING');
+    // Direct scan submission (scanned via camera / UPI)
+    await completeSubmission(utrVal || 'UPI_QR_SCANNED', 'UPI QR Scan', 'PAID');
   } catch (err) {
     console.error('Submission error:', err);
     showToast('सबमिशन में त्रुटि आई। कृपया पुनः प्रयास करें।');
