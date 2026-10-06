@@ -668,14 +668,34 @@ body {
   width: fit-content;
 }
 
+.pill-upi {
+  background: #dcfce7;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+
+.pill-utr {
+  background: #bbf7d0;
+  color: #14532d;
+  border: 1px solid #86efac;
+}
+
+.pill-screenshot {
+  background: #f3e8ff;
+  color: #6b21a8;
+  border: 1px solid #d8b4fe;
+}
+
+.pill-offline {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
 .pill-razorpay {
   background: #e0f2fe;
   color: #0369a1;
-}
-
-.pill-upi {
-  background: #fef3c7;
-  color: #92400e;
+  border: 1px solid #bae6fd;
 }
 
 .payment-ref-code {

@@ -183,12 +183,12 @@ function normalizeItem(raw) {
     mobileNumber:  (raw.mobileNumber || '').replace(/\D/g, '').slice(-10),
     email:         raw.email || 'N/A',
     address:       raw.address || 'N/A',
-    paymentRef:    raw.paymentRef || raw.utrNumber || 'N/A',
-    paymentMethod: raw.paymentMethod || 'Razorpay Online',
+    paymentRef:    raw.paymentRef || raw.utrNumber || 'UPI_QR_SCANNED',
+    paymentMethod: raw.paymentMethod || 'UPI QR Scan',
     amount:        Number(raw.amount) || 199,
     status:        raw.status || 'PAID',
     createdAt:     raw.createdAt || raw.timestamp || new Date().toISOString(),
-    screenshot:    raw.screenshot || null
+    screenshot:    raw.screenshot || raw.screenshotBase64 || null
   };
 }
 
@@ -239,10 +239,12 @@ function renderFilteredTable() {
 
     // Filter method
     let matchesMethod = true;
-    if (methodFilter === 'Razorpay') {
-      matchesMethod = item.paymentMethod.toLowerCase().includes('razorpay');
-    } else if (methodFilter === 'UPI') {
-      matchesMethod = item.paymentMethod.toLowerCase().includes('upi') || item.paymentMethod.toLowerCase().includes('qr');
+    if (methodFilter === 'UPI') {
+      matchesMethod = item.paymentMethod.toLowerCase().includes('upi') || item.paymentMethod.toLowerCase().includes('qr') || item.paymentMethod.toLowerCase().includes('scan');
+    } else if (methodFilter === 'UTR') {
+      matchesMethod = item.paymentMethod.toLowerCase().includes('utr') || (item.paymentRef && /^\d{6,25}$/.test(item.paymentRef.trim()));
+    } else if (methodFilter === 'SCREENSHOT') {
+      matchesMethod = Boolean(item.screenshot) || item.paymentMethod.toLowerCase().includes('screenshot') || (item.paymentRef && item.paymentRef.includes('SCREENSHOT'));
     }
 
     return matchesQuery && matchesMethod;
@@ -271,10 +273,30 @@ function renderFilteredTable() {
     const formattedDate = formatTableDate(item.createdAt);
     const cleanMobile = item.mobileNumber.slice(-10);
     const waText = encodeURIComponent(
-      `नमस्ते ${item.fullName},\n\nSfarmart24 में आपका स्वागत है! आपका पार्टनर रजिस्ट्रेशन फॉर्म और ₹${item.amount} का भुगतान सफलतापूर्वक प्राप्त हो गया है।\n\nRegistration ID: ${item.id}\nPayment Ref: ${item.paymentRef}`
+      `नमस्ते ${item.fullName},\n\nSfarmart24 में आपका स्वागत है! आपका पार्टनर रजिस्ट्रेशन फॉर्म और ₹${item.amount} का UPI QR स्कैनर भुगतान प्राप्त हो गया है।\n\nRegistration ID: ${item.id}\nUPI Ref / UTR: ${item.paymentRef}`
     );
     const waLink = `https://wa.me/91${cleanMobile}?text=${waText}`;
-    const isRzp = item.paymentMethod.toLowerCase().includes('razorpay');
+
+    const mLower = item.paymentMethod.toLowerCase();
+    const isScreenshot = Boolean(item.screenshot) || mLower.includes('screenshot') || (item.paymentRef && item.paymentRef.includes('SCREENSHOT'));
+    const isUtr = mLower.includes('utr') || (item.paymentRef && /^\d{6,25}$/.test(item.paymentRef.trim()));
+    const isRzp = mLower.includes('razorpay');
+
+    let pillClass = 'pill-upi';
+    let pillText = 'UPI Scanner';
+    if (isScreenshot) {
+      pillClass = 'pill-screenshot';
+      pillText = '📸 QR + Proof';
+    } else if (isUtr) {
+      pillClass = 'pill-utr';
+      pillText = '✓ UPI UTR';
+    } else if (isRzp) {
+      pillClass = 'pill-razorpay';
+      pillText = 'Razorpay';
+    } else if (mLower.includes('offline') || mLower.includes('cash')) {
+      pillClass = 'pill-offline';
+      pillText = 'Offline';
+    }
 
     return `
       <tr data-id="${item.id}">
@@ -323,8 +345,8 @@ function renderFilteredTable() {
         <!-- Payment Ref / Mode -->
         <td>
           <div class="payment-cell">
-            <span class="payment-method-pill ${isRzp ? 'pill-razorpay' : 'pill-upi'}">
-              ${isRzp ? 'Razorpay' : 'UPI QR'}
+            <span class="payment-method-pill ${pillClass}">
+              ${pillText}
             </span>
             <span class="payment-ref-code" title="Payment Reference / UTR">
               ${escapeHtml(item.paymentRef)}
@@ -382,8 +404,12 @@ window.viewDetails = function(id) {
   const ssRow = document.getElementById('mScreenshotRow');
   const ssImg = document.getElementById('mScreenshotImg');
   if (item.screenshot && ssRow && ssImg) {
-    const backendOrigin = API_BASE_URL.replace(/\/api$/, '');
-    ssImg.src = `${backendOrigin}${item.screenshot}`;
+    if (item.screenshot.startsWith('data:') || item.screenshot.startsWith('http')) {
+      ssImg.src = item.screenshot;
+    } else {
+      const backendOrigin = API_BASE_URL.replace(/\/api$/, '');
+      ssImg.src = `${backendOrigin}${item.screenshot}`;
+    }
     ssRow.style.display = 'block';
   } else if (ssRow) {
     ssRow.style.display = 'none';

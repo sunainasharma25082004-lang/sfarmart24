@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sfarmart24 - Admin Dashboard (Partner Form & Payments)</title>
-  <meta name="description" content="Sfarmart24 Partner Form & Razorpay Payment Administration Console">
+  <title>Sfarmart24 - Admin Dashboard (Partner Form & UPI Payments)</title>
+  <meta name="description" content="Sfarmart24 Partner Form & UPI QR Scanner Payment Administration Console">
   <link rel="icon" type="image/png" href="assets/logo.png">
 
   <!-- Google Fonts -->
@@ -152,8 +152,9 @@
             <!-- Payment Method Filter -->
             <select id="filterMethod" class="filter-select">
               <option value="ALL">All Payment Methods</option>
-              <option value="Razorpay">Razorpay Online</option>
-              <option value="UPI">UPI QR Scan (UTR)</option>
+              <option value="UPI">UPI QR Scanner (All)</option>
+              <option value="UTR">UPI UTR Ref Verified</option>
+              <option value="SCREENSHOT">Screenshot Attached 📸</option>
             </select>
 
             <!-- Sort By -->
@@ -326,16 +327,17 @@
               <input type="email" id="addEmail" class="form-ctrl" required placeholder="partner@gmail.com">
             </div>
             <div class="form-col">
-              <label class="form-lbl">Payment Ref / UTR *</label>
-              <input type="text" id="addPaymentRef" class="form-ctrl" required placeholder="pay_manual_... or UTR">
+              <label class="form-lbl">UPI Ref / UTR *</label>
+              <input type="text" id="addPaymentRef" class="form-ctrl" required placeholder="12-digit UPI UTR or Ref">
             </div>
           </div>
           <div class="form-row">
             <div class="form-col">
               <label class="form-lbl">Payment Method</label>
               <select id="addMethod" class="form-ctrl">
-                <option value="Razorpay Online">Razorpay Online</option>
-                <option value="UPI QR Scan (UTR Verified)">UPI QR Scan (UTR)</option>
+                <option value="UPI QR Scan (UTR Verified)" selected>UPI QR Scan (UTR Verified)</option>
+                <option value="UPI QR Scan (Camera / App)">UPI QR Scan (Camera / App)</option>
+                <option value="UPI QR Scan (Screenshot Attached)">UPI QR Scan (Screenshot Attached)</option>
                 <option value="Cash / Offline Deposit">Cash / Offline Deposit</option>
               </select>
             </div>
